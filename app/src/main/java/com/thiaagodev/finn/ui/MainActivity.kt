@@ -37,9 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.fabAddTransaction.setColorFilter(getColor(R.color.white))
 
-        //navView.itemActiveIndicatorColor = ColorStateList(arrayOf<IntArray>(IntArray(getColor(R.color.white))), IntArray(getColor(R.color.white)))
-
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
