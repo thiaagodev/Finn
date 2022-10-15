@@ -9,4 +9,7 @@
     <string name="my_accounts">Minhas contas</string>
     <string name="general_balance">Saldo geral</string>
     <string name="balance">R$ 100,00</string>
+    <string name="register_account">Cadastrar conta</string>
+    <string name="name_of_account">Nome da conta</string>
+    <string name="save">Salvar</string>
 </resources>
