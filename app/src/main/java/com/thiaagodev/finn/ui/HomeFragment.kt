@@ -1,33 +1,30 @@
 package com.thiaagodev.finn.ui
 
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.thiaagodev.finn.R
+import com.thiaagodev.finn.databinding.AccountFormBottomSheetBinding
 import com.thiaagodev.finn.databinding.FragmentHomeBinding
 import com.thiaagodev.finn.viewmodel.HomeViewModel
 import java.text.SimpleDateFormat
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, bundle: Bundle?): View {
         val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.imageAddAccount.setOnClickListener(this)
 
         return binding.root
     }
@@ -46,4 +43,23 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onClick(view: View) {
+        when(view.id) {
+            R.id.image_add_account -> {
+                showAccountFormDialog()
+            }
+        }
+    }
+
+    private fun showAccountFormDialog() {
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog).apply {
+            window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        }
+        val sheetBinding = AccountFormBottomSheetBinding.inflate(layoutInflater, null, false)
+        dialog.setContentView(sheetBinding.root)
+        dialog.show()
+
+    }
+
 }

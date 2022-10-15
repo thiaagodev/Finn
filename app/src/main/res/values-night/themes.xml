@@ -13,9 +13,21 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/light_green</item>
         <!-- Customize your theme here. -->
+        <item name="textFillColor">@color/white</item>
     </style>
 
     <style name="BottomNavigationView">
         <item name="colorPrimary">@color/white</item>
     </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">
+            @style/BottomSheetStyle
+        </item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>
