@@ -7,4 +7,6 @@
     <string name="good_evening">Good evening,</string>
     <string name="user_name">Thiago</string>
     <string name="my_accounts">My accounts</string>
+    <string name="general_balance">General balance</string>
+    <string name="balance">R$ 100,00</string>
 </resources>
