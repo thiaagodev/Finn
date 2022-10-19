@@ -1,4 +1,4 @@
-package com.thiaagodev.finn.ui
+package com.thiaagodev.finn.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.thiaagodev.finn.R
 import com.thiaagodev.finn.databinding.AccountFormBottomSheetBinding

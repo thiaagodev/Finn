@@ -26,7 +26,7 @@
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        tools:context=".view.MainActivity">
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar"

@@ -1,4 +1,4 @@
-package com.thiaagodev.finn.ui
+package com.thiaagodev.finn.view
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
