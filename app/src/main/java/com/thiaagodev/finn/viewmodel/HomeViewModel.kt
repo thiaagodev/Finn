@@ -1,13 +1,29 @@
 package com.thiaagodev.finn.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.*
+import com.thiaagodev.finn.service.model.Account
+import com.thiaagodev.finn.service.repository.AccountRepository
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val accountRepository = AccountRepository(application)
+    private val allAccounts = MutableLiveData<List<Account?>>()
+
+    val accounts: LiveData<List<Account?>> = allAccounts
+
+    fun getAllAccounts() {
+        viewModelScope.launch {
+            allAccounts.value = accountRepository.getAll()
+        }
     }
-    val text: LiveData<String> = _text
+
+
+    fun saveAccount(account: Account) {
+        viewModelScope.launch {
+            accountRepository.insert(account)
+        }
+    }
+
 }
