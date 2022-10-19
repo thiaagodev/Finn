@@ -42,17 +42,17 @@ class Transaction {
     var description: String = ""
 
     @ColumnInfo
-    var account: Int? = null
+    var account: Long? = null
 
     @TypeConverters(DateConverter::class)
     @ColumnInfo
     var date: Date = Date(System.currentTimeMillis())
 
     @ColumnInfo
-    var fixed: Int? = null
+    var fixed: Long? = null
 
     @ColumnInfo
-    var installment: Int? = null
+    var installment: Long? = null
 
     @ColumnInfo
     var value: Double = 0.0
