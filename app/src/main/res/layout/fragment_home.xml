@@ -81,13 +81,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginTop="128dp"
         android:backgroundTint="@color/light_green"
-        android:minHeight="256dp"
+        android:minHeight="300dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +97,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:maxHeight="300dp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_my_accounts"
@@ -121,9 +123,9 @@
                 app:layout_constraintTop_toTopOf="@id/text_my_accounts" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_accounts"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="256dp"
+                android:layout_height="250dp"
                 android:layout_marginTop="8dp"
                 android:background="?attr/background"
                 android:padding="16dp"

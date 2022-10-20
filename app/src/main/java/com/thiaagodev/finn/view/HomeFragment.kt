@@ -1,18 +1,19 @@
 package com.thiaagodev.finn.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.thiaagodev.finn.R
 import com.thiaagodev.finn.databinding.AccountFormBottomSheetBinding
 import com.thiaagodev.finn.databinding.FragmentHomeBinding
 import com.thiaagodev.finn.service.model.Account
+import com.thiaagodev.finn.view.adapter.AccountAdapter
 import com.thiaagodev.finn.viewmodel.HomeViewModel
 import java.text.SimpleDateFormat
 
@@ -24,6 +25,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var dialog: BottomSheetDialog
     private lateinit var sheetBinding: AccountFormBottomSheetBinding
     private lateinit var homeViewModel: HomeViewModel
+    private val adapter = AccountAdapter()
 
     private var accounts: List<Account?> = listOf()
 
@@ -33,7 +35,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         sheetBinding = AccountFormBottomSheetBinding.inflate(layoutInflater, null, false)
 
+        binding.recyclerAccounts.layoutManager = LinearLayoutManager(context)
+        binding.recyclerAccounts.adapter = adapter
+
         binding.imageAddAccount.setOnClickListener(this)
+
+        observe()
 
         return binding.root
     }
@@ -48,6 +55,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ) else getString(R.string.good_evening)
 
         binding.textWelcomeMessage.text = welcomeString
+
+        homeViewModel.getAllAccounts()
 
     }
 
@@ -65,6 +74,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.button_save_account -> {
                 saveAccount()
             }
+        }
+    }
+
+    private fun observe() {
+        homeViewModel.accounts.observe(viewLifecycleOwner) {
+            adapter.updateAccounts(it)
         }
     }
 
@@ -86,6 +101,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         dialog.dismiss()
         homeViewModel.saveAccount(account)
+        homeViewModel.getAllAccounts()
     }
 
 }
