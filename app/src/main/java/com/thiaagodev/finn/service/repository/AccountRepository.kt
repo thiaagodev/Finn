@@ -8,12 +8,12 @@ class AccountRepository(context: Context) {
     private val database = FinnDatabase.getDatabase(context).accountDAO()
 
 
-    suspend fun insert(account: Account): Boolean {
-        return database.insert(account) > 0
-    }
+    suspend fun insert(account: Account): Boolean = database.insert(account) > 0
 
-    suspend fun getAll(): List<Account?> {
-        return database.getAll()
-    }
+    suspend fun getAll(): List<Account?> = database.getAll()
+
+    suspend fun delete(account: Account) = database.delete(account)
+
+    suspend fun update(account: Account): Boolean = database.update(account) > 0
 
 }

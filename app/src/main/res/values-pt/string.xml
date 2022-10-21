@@ -12,4 +12,12 @@
     <string name="register_account">Cadastrar conta</string>
     <string name="name_of_account">Nome da conta</string>
     <string name="save">Salvar</string>
+    <string name="remove_account">Remover conta</string>
+    <string name="remove_account_message">Deseja remover a conta %1$s?</string>
+    <string name="positive_button">Yes</string>
+    <string name="negative_button">No</string>
+    <string name="sucess_insert_account">Conta salva com sucesso</string>
+    <string name="failure_insert_account">Falha ao salvar conta</string>
+    <string name="sucess_update_account">Conta atualizada com sucesso</string>
+    <string name="failure_update_account">"Falha ao atualizar conta"</string>
 </resources>

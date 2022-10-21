@@ -12,4 +12,12 @@
     <string name="register_account">Register account</string>
     <string name="name_of_account">Name of account</string>
     <string name="save">Save</string>
+    <string name="remove_account">Remove account</string>
+    <string name="remove_account_message">You want to remove the %1$s account?</string>
+    <string name="positive_button">Yes</string>
+    <string name="negative_button">No</string>
+    <string name="sucess_insert_account">Account saved successfully</string>
+    <string name="failure_insert_account">Failed to save account</string>
+    <string name="sucess_update_account">Account successfully updated</string>
+    <string name="failure_update_account">"Failed to update account"</string>
 </resources>
