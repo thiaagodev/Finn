@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/account_form_corners"
-    android:backgroundTint="?attr/background"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:backgroundTint="?attr/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_register_account"
@@ -39,20 +38,17 @@
             android:inputType="textCapWords"
             />
 
-
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/button_save_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="300dp"
-            android:background="@drawable/button_rounded"
-            android:backgroundTint="@color/light_green"
-            android:paddingHorizontal="48dp"
+            android:layout_marginTop="100dp"
             android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/Widget.Material3.Button"/>
 
     </LinearLayout>
 

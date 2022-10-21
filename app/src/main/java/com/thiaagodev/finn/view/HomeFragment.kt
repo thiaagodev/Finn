@@ -1,6 +1,7 @@
 package com.thiaagodev.finn.view
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,18 +23,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var dialog: BottomSheetDialog
-    private lateinit var sheetBinding: AccountFormBottomSheetBinding
     private lateinit var homeViewModel: HomeViewModel
     private val adapter = AccountAdapter()
-
-    private var accounts: List<Account?> = listOf()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        sheetBinding = AccountFormBottomSheetBinding.inflate(layoutInflater, null, false)
 
         binding.recyclerAccounts.layoutManager = LinearLayoutManager(context)
         binding.recyclerAccounts.adapter = adapter
@@ -68,11 +63,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.image_add_account -> {
-                showAccountFormDialog()
-            }
-
-            R.id.button_save_account -> {
-                saveAccount()
+                showAccountFormDialog(null)
             }
         }
     }
@@ -83,21 +74,33 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun showAccountFormDialog() {
-        dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog).apply {
+    private fun showAccountFormDialog(account: Account?) {
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialog).apply {
             window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         }
 
-        sheetBinding.buttonSaveAccount.setOnClickListener(this)
+        val sheetBinding = AccountFormBottomSheetBinding.inflate(layoutInflater, null, false)
+        sheetBinding.buttonSaveAccount.setOnClickListener {
+            saveAccount(dialog, sheetBinding, account?.id)
+        }
+
+        account?.let {
+            sheetBinding.editAccountName.setText(it.name)
+        }
 
         dialog.setContentView(sheetBinding.root)
         dialog.show()
 
     }
 
-    private fun saveAccount() {
+    private fun saveAccount(
+        dialog: BottomSheetDialog,
+        sheetBinding: AccountFormBottomSheetBinding,
+        id: Long?
+    ) {
         val account = Account()
         account.name = sheetBinding.editAccountName.text.toString()
+        account.id = id ?: 0
 
         dialog.dismiss()
         homeViewModel.saveAccount(account)
