@@ -105,11 +105,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         val sheetBinding = AccountFormBottomSheetBinding.inflate(layoutInflater, null, false)
         sheetBinding.buttonSaveAccount.setOnClickListener {
-            saveAccount(dialog, sheetBinding, account?.id)
+            saveAccount(dialog, sheetBinding, account)
         }
 
         account?.let {
             sheetBinding.editAccountName.setText(it.name)
+            sheetBinding.textRegisterAccount.text = getString(R.string.update_account)
         }
 
         dialog.setContentView(sheetBinding.root)
@@ -120,11 +121,15 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private fun saveAccount(
         dialog: BottomSheetDialog,
         sheetBinding: AccountFormBottomSheetBinding,
-        id: Long?
+        accountUpdate: Account?
     ) {
-        val account = Account()
+        var account = Account()
+
+        accountUpdate?.let {
+            account = accountUpdate
+        }
+
         account.name = sheetBinding.editAccountName.text.toString()
-        account.id = id ?: 0
 
         dialog.dismiss()
         homeViewModel.saveAccount(account)
