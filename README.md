@@ -31,7 +31,7 @@ facilidade, tendo todo o histórico das suas finanças e visualização dos pró
 
 ![foto](./.github/finn.jpg)
 
-## Download
+## 📲 Download
 
 Projeto em desenvolvimento...
 Assim que finalizado o download será disponibilizado
