@@ -15,7 +15,7 @@
 
 ## 🚀 Tecnologias
 
-Esse projeto utilizei as seguintes tecnologias:
+Neste projeto utilizei as seguintes tecnologias:
 
 - Kotlin
 - ROOM
