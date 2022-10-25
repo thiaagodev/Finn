@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/account_form_corners"
+    android:backgroundTint="?attr/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="@color/light_green"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="3dp"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat.Menu"
+            app:tabTextColor="?attr/textFillColor">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expense" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/revenue" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_transaction_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/transaction_value"
+            android:inputType="numberDecimal"
+            android:textColor="?attr/textFillColor"
+            android:textColorHint="?attr/textFillColor"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_transaction" />
+
+        <View
+            android:id="@+id/view_1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_transaction_value" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="144dp"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/description"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_transaction_value" />
+
+        <View
+            android:id="@+id/view_2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_description" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/name_of_account"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_selected_account"
+            style="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_of_account"
+            android:textColor="?attr/textFillColor"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_account" />
+
+        <View
+            android:id="@+id/view_3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_selected_account" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="144dp"
+            android:background="@drawable/edit_text_background"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/date"
+            android:inputType="date"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_3" />
+
+        <View
+            android:id="@+id/view_4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_date" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_repeat_launch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/repeat_launch"
+            android:textColor="?attr/textFillColor"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_4" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_repeat_launch"
+            app:singleSelection="true"
+            >
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fixed"
+                android:textSize="14sp"
+                />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_installment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/installment"
+                android:textSize="14sp"
+                />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Button
+            android:id="@+id/button_save_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/chip_group"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="64dp"
+            style="@style/Widget.Material3.Button"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

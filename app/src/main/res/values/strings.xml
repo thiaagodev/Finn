@@ -21,4 +21,12 @@
     <string name="failure_insert_account">Failed to save account</string>
     <string name="sucess_update_account">Account successfully updated</string>
     <string name="failure_update_account">"Failed to update account"</string>
+    <string name="expense">Expense</string>
+    <string name="revenue">Revenue</string>
+    <string name="transaction_value">R$ 0,00</string>
+    <string name="description">Description</string>
+    <string name="date">Date</string>
+    <string name="repeat_launch">Repeat launch</string>
+    <string name="fixed">Fixed</string>
+    <string name="installment">Installment</string>
 </resources>

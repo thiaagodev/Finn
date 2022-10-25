@@ -21,4 +21,12 @@
     <string name="failure_insert_account">Falha ao salvar conta</string>
     <string name="sucess_update_account">Conta atualizada com sucesso</string>
     <string name="failure_update_account">"Falha ao atualizar conta"</string>
+    <string name="expense">Despesa</string>
+    <string name="revenue">Receita</string>
+    <string name="transaction_value">R$ 0,00</string>
+    <string name="description">Descrição</string>
+    <string name="date">Data</string>
+    <string name="repeat_launch">Repetir lançamento</string>
+    <string name="fixed">Fixo</string>
+    <string name="installment">Parcelado</string>
 </resources>

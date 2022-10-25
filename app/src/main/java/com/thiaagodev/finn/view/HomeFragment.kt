@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -112,7 +113,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             sheetBinding.editAccountName.setText(it.name)
             sheetBinding.textRegisterAccount.text = getString(R.string.update_account)
         }
-
         dialog.setContentView(sheetBinding.root)
         dialog.show()
 
