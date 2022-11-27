@@ -69,11 +69,11 @@
             android:layout_marginEnd="144dp"
             android:background="@drawable/edit_text_background"
             android:hint="@string/description"
+            android:inputType="text"
             android:padding="16dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="14sp"
-            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_transaction_value" />
 
@@ -166,24 +166,21 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_repeat_launch"
-            app:singleSelection="true"
-            >
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_fixed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fixed"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_installment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/installment"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -191,15 +188,14 @@
             android:id="@+id/button_save_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
             android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/chip_group"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="64dp"
-            style="@style/Widget.Material3.Button"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chip_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
