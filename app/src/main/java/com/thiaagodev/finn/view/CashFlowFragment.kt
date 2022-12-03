@@ -6,29 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.thiaagodev.finn.databinding.FragmentCashFlowBinding
 import com.thiaagodev.finn.viewmodel.CashFlowViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CashFlowFragment : Fragment() {
 
     private var _binding: FragmentCashFlowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val cashFlowViewModel: CashFlowViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val cashFlowViewModel =
-            ViewModelProvider(this).get(CashFlowViewModel::class.java)
 
         _binding = FragmentCashFlowBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
 
         val textView: TextView = binding.textNotifications

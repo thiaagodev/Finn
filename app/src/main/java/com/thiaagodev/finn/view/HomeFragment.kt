@@ -1,15 +1,12 @@
 package com.thiaagodev.finn.view
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -20,18 +17,22 @@ import com.thiaagodev.finn.service.model.Account
 import com.thiaagodev.finn.view.adapter.AccountAdapter
 import com.thiaagodev.finn.view.listener.OnAccountListener
 import com.thiaagodev.finn.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var homeViewModel: HomeViewModel
-    private val adapter = AccountAdapter()
+    private val homeViewModel: HomeViewModel by viewModels()
+
+    @Inject
+    lateinit var adapter: AccountAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
-        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.recyclerAccounts.layoutManager = LinearLayoutManager(context)
@@ -39,7 +40,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         binding.imageAddAccount.setOnClickListener(this)
 
-        val accountListener = object: OnAccountListener {
+        val accountListener = object : OnAccountListener {
             override fun onClick(account: Account) {
                 showAccountFormDialog(account)
             }
@@ -54,6 +55,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
         observe()
 
+        homeViewModel.getAllAccounts()
+
         return binding.root
     }
 
@@ -67,10 +70,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
             ) else getString(R.string.good_evening)
 
         binding.textWelcomeMessage.text = welcomeString
-
-
-        homeViewModel.getAllAccounts()
-
     }
 
     override fun onDestroyView() {
@@ -87,15 +86,18 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     private fun observe() {
-        homeViewModel.accounts.observe(viewLifecycleOwner) {
-            adapter.updateAccounts(it)
+        homeViewModel.allAccounts.observe(viewLifecycleOwner) {
+            it.data?.let { data -> adapter.updateAccounts(data) }
         }
 
-        homeViewModel.saveAccount.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { msg ->
-                Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
+        homeViewModel.saveAccount.observe(viewLifecycleOwner) { resource ->
+            resource.getContentIfNotHandled()?.let {
+                if (it.error == null) {
+                    showSnackBar(getString(R.string.sucess_insert_account))
+                } else {
+                    showSnackBar(getString(R.string.failure_insert_account))
+                }
             }
-
         }
     }
 
@@ -135,4 +137,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
         homeViewModel.saveAccount(account)
     }
 
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+            binding.root,
+            message,
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
 }

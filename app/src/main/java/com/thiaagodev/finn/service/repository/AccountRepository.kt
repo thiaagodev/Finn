@@ -1,19 +1,36 @@
 package com.thiaagodev.finn.service.repository
 
-import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.thiaagodev.finn.service.model.Account
+import com.thiaagodev.finn.service.model.Resource
+import com.thiaagodev.finn.service.repository.local.AccountDAO
+import javax.inject.Inject
 
-class AccountRepository(context: Context) {
+class AccountRepository @Inject constructor(private val database: AccountDAO) {
 
-    private val database = FinnDatabase.getDatabase(context).accountDAO()
+    private val accountsMediator = MediatorLiveData<Resource<List<Account?>>>()
 
+    suspend fun insert(account: Account): Resource<Account> {
+        database.insert(account)
 
-    suspend fun insert(account: Account): Boolean = database.insert(account) > 0
+        return Resource(null, null)
+    }
 
-    suspend fun getAll(): List<Account?> = database.getAll()
+    fun getAll(): LiveData<Resource<List<Account?>>> {
+        accountsMediator.addSource(database.getAll()) {
+            accountsMediator.value = Resource(it)
+        }
+
+        return accountsMediator
+    }
 
     suspend fun delete(account: Account) = database.delete(account)
 
-    suspend fun update(account: Account): Boolean = database.update(account) > 0
+    suspend fun update(account: Account): Resource<Account> {
+        database.update(account)
+
+        return Resource(null, null)
+    }
 
 }

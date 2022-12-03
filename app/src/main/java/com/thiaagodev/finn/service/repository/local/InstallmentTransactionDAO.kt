@@ -1,5 +1,6 @@
-package com.thiaagodev.finn.service.repository.dao
+package com.thiaagodev.finn.service.repository.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.thiaagodev.finn.service.model.InstallmentTransaction
 
@@ -16,8 +17,8 @@ interface InstallmentTransactionDAO {
     suspend fun delete(installmentTransaction: InstallmentTransaction)
 
     @Query("SELECT * FROM InstallmentTransaction")
-    suspend fun getAll(): List<InstallmentTransaction?>
+    fun getAll(): LiveData<List<InstallmentTransaction?>>
 
     @Query("SELECT * FROM InstallmentTransaction WHERE id = :id")
-    suspend fun get(id: Int): InstallmentTransaction?
+    fun get(id: Int): LiveData<InstallmentTransaction?>
 }

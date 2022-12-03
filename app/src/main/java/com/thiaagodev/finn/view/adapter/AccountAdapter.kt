@@ -7,8 +7,9 @@ import com.thiaagodev.finn.databinding.RowAccountBinding
 import com.thiaagodev.finn.service.model.Account
 import com.thiaagodev.finn.view.listener.OnAccountListener
 import com.thiaagodev.finn.view.viewholder.AccountViewHolder
+import javax.inject.Inject
 
-class AccountAdapter: RecyclerView.Adapter<AccountViewHolder>() {
+class AccountAdapter @Inject constructor() : RecyclerView.Adapter<AccountViewHolder>() {
 
     private var accountList: List<Account?> = listOf()
     private lateinit var accountListener: OnAccountListener

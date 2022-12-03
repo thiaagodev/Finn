@@ -1,5 +1,6 @@
-package com.thiaagodev.finn.service.repository.dao
+package com.thiaagodev.finn.service.repository.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.thiaagodev.finn.service.model.Account
 
@@ -16,8 +17,8 @@ interface AccountDAO {
     suspend fun delete(account: Account)
 
     @Query("SELECT * FROM Account")
-    suspend fun getAll(): List<Account?>
+    fun getAll(): LiveData<List<Account?>>
 
     @Query("SELECT * FROM Account WHERE id = :id")
-    suspend fun get(id: Int): Account?
+    fun get(id: Int): LiveData<Account?>
 }

@@ -1,53 +1,46 @@
 package com.thiaagodev.finn.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.thiaagodev.finn.R
 import com.thiaagodev.finn.service.model.Account
+import com.thiaagodev.finn.service.model.Resource
 import com.thiaagodev.finn.service.repository.AccountRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val accountRepository: AccountRepository) :
+    ViewModel() {
 
-    private val context = application.applicationContext
-    private val accountRepository = AccountRepository(application)
-    private val allAccounts = MutableLiveData<List<Account?>>()
-    private val _saveAccount = MutableLiveData<Event<String>>()
+    private val _saveAccount = MutableLiveData<Resource<Account>>()
+    val saveAccount: LiveData<Resource<Account>> = _saveAccount
 
-    val accounts: LiveData<List<Account?>> = allAccounts
-    val saveAccount: LiveData<Event<String>> = _saveAccount
+    val allAccounts = MediatorLiveData<Resource<List<Account?>>>()
+
+    init {
+        allAccounts.addSource(accountRepository.getAll()) {
+            allAccounts.value = it
+        }
+    }
 
     fun getAllAccounts() {
-        viewModelScope.launch {
-            allAccounts.value = accountRepository.getAll()
-        }
+        accountRepository.getAll()
     }
 
 
     fun saveAccount(account: Account) {
         viewModelScope.launch {
-            if(account.id == 0.toLong()) {
-                if (accountRepository.insert(account)) {
-                    _saveAccount.value = Event(context.getString(R.string.sucess_insert_account))
-                } else {
-                    _saveAccount.value = Event(context.getString(R.string.failure_insert_account))
-                }
+            if (account.id == 0.toLong()) {
+                _saveAccount.value = accountRepository.insert(account)
             } else {
-               if(accountRepository.update(account)) {
-                   _saveAccount.value = Event(context.getString(R.string.sucess_update_account))
-               }  else {
-                   _saveAccount.value = Event(context.getString(R.string.failure_update_account))
-               }
+                _saveAccount.value = accountRepository.update(account)
             }
-
-            getAllAccounts()
         }
     }
 
     fun deleteAccount(account: Account) {
         viewModelScope.launch {
             accountRepository.delete(account)
-            getAllAccounts()
         }
     }
 
