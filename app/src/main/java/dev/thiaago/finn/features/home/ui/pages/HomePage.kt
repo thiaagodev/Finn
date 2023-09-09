@@ -1,19 +1,13 @@
 package dev.thiaago.finn.features.home.ui.pages
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import dev.thiaago.finn.core.ui.theme.FinnTheme
+import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 
 @Composable
 fun HomePage(navController: NavController) {
@@ -47,56 +42,15 @@ fun HomePage(navController: NavController) {
                         )
                     )
             ) {
-                Column(
-                    Modifier
-                        .padding(32.dp)
-                        .fillMaxWidth()
-                ) {
+                Column(Modifier.padding(32.dp)) {
                     Text(
                         "Home",
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
-                    Spacer(Modifier.height(32.dp))
-                    Row(
-                        Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Column {
-                            Text(
-                                "Gastos",
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                fontSize = 16.sp,
-                            )
-                            Text(
-                                "R$ 3.000,00",
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                        Divider(
-                            Modifier
-                                .width(2.dp)
-                                .height(64.dp),
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                        Column {
-                            Text(
-                                "Despesas",
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                fontSize = 16.sp,
-                            )
-                            Text(
-                                "R$ 2.400,00",
-                                color = MaterialTheme.colorScheme.onPrimary,
-                                fontSize = 18.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-                    }
+
+                    IncomeAndExpensesSection(income = 3000.89, expenses = 2400.55)
                 }
                 Surface(
                     shape = RoundedCornerShape(15.dp),

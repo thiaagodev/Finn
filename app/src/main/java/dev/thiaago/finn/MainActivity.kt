@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -55,7 +56,6 @@ class MainActivity : ComponentActivity() {
                             BottomAppBar(
                                 containerColor = MaterialTheme.colorScheme.surface,
                                 tonalElevation = 0.dp,
-                                contentPadding = PaddingValues(2.dp),
                                 actions = {
                                     NavigationBarItem(
                                         modifier = Modifier.padding(start = 16.dp),
@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                                         selected = false,
                                         icon = {
                                             Icon(
-                                                modifier = Modifier.size(32.dp),
+                                                modifier = Modifier.size(24.dp),
                                                 imageVector = Icons.Filled.Home,
                                                 contentDescription = "Home"
                                             )
@@ -71,14 +71,14 @@ class MainActivity : ComponentActivity() {
                                     )
 
                                     NavigationBarItem(
-                                        modifier = Modifier.padding(start = 16.dp),
+                                        modifier = Modifier.padding(start = 8.dp),
                                         onClick = { /*TODO*/ },
                                         selected = false,
                                         icon = {
                                             Icon(
-                                                modifier = Modifier.size(32.dp),
+                                                modifier = Modifier.size(24.dp),
                                                 painter = painterResource(id = R.drawable.outline_payments_24),
-                                                contentDescription = "Gastos e despesas"
+                                                contentDescription = "Receitas e despesas"
                                             )
                                         }
                                     )
