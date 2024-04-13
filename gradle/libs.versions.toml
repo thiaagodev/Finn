@@ -1,0 +1,42 @@
+[versions]
+androidGradlePlugin = "8.1.4"
+kotlinGradlePlugin = "1.9.23"
+daggerHiltPlugin = "2.44"
+kspPlugin = "1.9.23-1.0.20"
+composeBom = "2024.04.00"
+activityCompose = "1.8.2"
+coreKtx = "1.12.0"
+espressoCore = "3.5.1"
+hiltAndroid = "2.51.1"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+lifecycleRuntimeKtx = "2.7.0"
+navVersion = "2.7.7"
+runtimeLivedata = "1.6.5"
+
+
+[libraries]
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
+androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
+junit = { module = "junit:junit", version.ref = "junit" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+material3 = { module = "androidx.compose.material3:material3" }
+compose-ui-testing = { module = "androidx.compose.ui:ui-test-junit4" }
+compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+
+[plugins]
+android-application = {id = "com.android.application", version.ref = "androidGradlePlugin"}
+kotlin-android= {id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin"}
+dagger-hilt-android = {id = "com.google.dagger.hilt.android", version.ref = "daggerHiltPlugin"}
+ksp = {id = "com.google.devtools.ksp", version.ref = "kspPlugin"}
