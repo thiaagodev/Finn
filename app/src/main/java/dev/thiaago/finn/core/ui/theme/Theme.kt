@@ -17,11 +17,11 @@ import androidx.core.view.WindowCompat
 
 
 private val LightColorScheme = lightColorScheme(
-    primary = lightGreen,
-    primaryContainer = darkGreen,
-    secondary = moneyColor,
-    error = errorColor,
-    background = backGroundColor,
+    primary = FinnColors.lightGreen,
+    primaryContainer = FinnColors.darkGreen,
+    secondary = FinnColors.moneyColor,
+    error = FinnColors.errorColor,
+    background = FinnColors.backGroundColor,
     onBackground = Color.Black,
     onPrimary = Color.White,
     surface = Color.White
