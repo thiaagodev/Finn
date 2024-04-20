@@ -23,7 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.thiaago.finn.core.ui.theme.FinnTheme
-import dev.thiaago.finn.features.home.ui.pages.HomePage
+import dev.thiaago.finn.features.home.ui.screens.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                                 startDestination = "/",
                             ) {
                                 composable("/") {
-                                    HomePage(navController)
+                                    HomeScreen(navController)
                                 }
                             }
                         },

@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Divider
 import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Surface
@@ -27,7 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.thiaago.finn.core.ui.theme.darkGreen
+import dev.thiaago.finn.core.ui.theme.FinnColors
 
 @Composable
 fun MyAccountsCard() {
@@ -58,7 +58,7 @@ fun MyAccountsCard() {
                     Spacer(Modifier.weight(1f))
                     FilledIconButton(
                         onClick = { /*TODO*/ },
-                        colors = IconButtonDefaults.filledIconButtonColors(containerColor = darkGreen),
+                        colors = IconButtonDefaults.filledIconButtonColors(containerColor = FinnColors.darkGreen),
                         modifier = Modifier
                             .padding(vertical = 8.dp, horizontal = 8.dp)
                             .size(32.dp)
@@ -72,7 +72,7 @@ fun MyAccountsCard() {
                     }
                 }
 
-                Divider(color = darkGreen, thickness = 2.dp)
+                HorizontalDivider(thickness = 2.dp, color = FinnColors.darkGreen)
 
             }
         }

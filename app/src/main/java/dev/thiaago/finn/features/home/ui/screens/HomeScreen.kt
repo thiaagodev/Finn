@@ -1,4 +1,4 @@
-package dev.thiaago.finn.features.home.ui.pages
+package dev.thiaago.finn.features.home.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,7 +22,7 @@ import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
 
 @Composable
-fun HomePage(navController: NavController) {
+fun HomeScreen(navController: NavController) {
     FinnTheme {
         Column {
             Box(
@@ -58,5 +58,5 @@ fun HomePage(navController: NavController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomePagePreview() {
-    HomePage(rememberNavController())
+    HomeScreen(rememberNavController())
 }
