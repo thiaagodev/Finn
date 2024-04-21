@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.hilt.android)
+    implementation(libs.google.fonts)
 
     ksp(libs.hilt.android.compiler)
 

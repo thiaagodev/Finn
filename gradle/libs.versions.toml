@@ -3,7 +3,7 @@ androidGradlePlugin = "8.1.4"
 kotlinGradlePlugin = "1.9.23"
 daggerHiltPlugin = "2.44"
 kspPlugin = "1.9.23-1.0.20"
-composeBom = "2024.04.00"
+composeBom = "2024.04.01"
 activityCompose = "1.8.2"
 coreKtx = "1.12.0"
 espressoCore = "3.5.1"
@@ -12,7 +12,8 @@ junit = "4.13.2"
 junitVersion = "1.1.5"
 lifecycleRuntimeKtx = "2.7.0"
 navVersion = "2.7.7"
-runtimeLivedata = "1.6.5"
+runtimeLivedata = "1.6.6"
+googleFonts = "1.6.6"
 
 
 [libraries]
@@ -34,6 +35,7 @@ material3 = { module = "androidx.compose.material3:material3" }
 compose-ui-testing = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+google-fonts = {module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "googleFonts"}
 
 [plugins]
 android-application = {id = "com.android.application", version.ref = "androidGradlePlugin"}
