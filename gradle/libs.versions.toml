@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.1.4"
+androidGradlePlugin = "8.3.2"
 kotlinGradlePlugin = "1.9.23"
 daggerHiltPlugin = "2.44"
 kspPlugin = "1.9.23-1.0.20"
