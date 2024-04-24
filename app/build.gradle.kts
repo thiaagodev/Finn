@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.hilt.android)
     implementation(libs.google.fonts)
+    implementation(libs.jetpackbrazilfields)
 
     ksp(libs.hilt.android.compiler)
 
