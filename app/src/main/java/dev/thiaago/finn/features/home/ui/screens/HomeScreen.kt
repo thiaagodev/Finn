@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +26,7 @@ import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
 @Composable
 fun HomeScreen(navController: NavController) {
     FinnTheme {
-        Column {
+        Box(Modifier.fillMaxSize()) {
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -45,12 +47,10 @@ fun HomeScreen(navController: NavController) {
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
                     )
-
                     IncomeAndExpensesSection(income = 3000.89, expenses = 2400.55)
                 }
-
-                MyAccountsCard()
             }
+            MyAccountsCard(Modifier.offset(y = 200.dp))
         }
     }
 }

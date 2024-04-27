@@ -1,3 +1,5 @@
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
@@ -6,7 +8,22 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+val appPropertiesFile = file("$rootDir/app.properties")
+val appProperties = Properties().apply {
+    appPropertiesFile.inputStream().use { load(it) }
+}
+
 android {
+
+    signingConfigs {
+        create("finn") {
+            keyAlias = "finn"
+            keyPassword = appProperties["keyPassword"].toString()
+            storeFile = file("../keystore/finn-keystore")
+            storePassword = appProperties["keyPassword"].toString()
+        }
+    }
+
     namespace = "dev.thiaago.finn"
     compileSdk = 34
 
@@ -16,6 +33,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        signingConfig = signingConfigs.getByName("finn")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

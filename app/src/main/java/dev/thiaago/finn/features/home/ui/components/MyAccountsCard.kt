@@ -6,9 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,20 +29,19 @@ import androidx.compose.ui.unit.dp
 import dev.thiaago.finn.core.ui.theme.FinnColors
 
 @Composable
-fun MyAccountsCard() {
-    Box {
+fun MyAccountsCard(modifier: Modifier = Modifier) {
+    Box(
+        modifier
+            .height(500.dp)
+            .padding(horizontal = 32.dp)
+    ) {
         Surface(
             shape = RoundedCornerShape(15.dp),
             shadowElevation = 4.dp,
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(horizontal = 32.dp)
-                .offset(y = 200.dp)
-        ) {
+            ) {
             Column(
                 Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
+                    .fillMaxSize()
                     .background(Color.White)
                     .align(Alignment.BottomCenter)
             ) {
@@ -73,7 +71,6 @@ fun MyAccountsCard() {
                 }
 
                 HorizontalDivider(thickness = 2.dp, color = FinnColors.darkGreen)
-
             }
         }
     }
@@ -82,5 +79,5 @@ fun MyAccountsCard() {
 @Preview
 @Composable
 private fun MyAccountsCardPrev() {
-
+    MyAccountsCard(Modifier)
 }
