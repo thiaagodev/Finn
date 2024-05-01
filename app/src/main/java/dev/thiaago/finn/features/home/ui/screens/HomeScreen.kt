@@ -17,14 +17,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen() {
     FinnTheme {
         Box(Modifier.fillMaxSize()) {
             Box(
@@ -58,5 +56,5 @@ fun HomeScreen(navController: NavController) {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomePagePreview() {
-    HomeScreen(rememberNavController())
+    HomeScreen()
 }

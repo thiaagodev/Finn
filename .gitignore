@@ -15,4 +15,5 @@
 local.properties
 app.properties
 keystore/*
+google-services.json
 

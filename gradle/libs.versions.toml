@@ -1,20 +1,22 @@
 [versions]
 androidGradlePlugin = "8.3.2"
+firebaseBom = "32.8.1"
 jetpackbrazilfieldsVersion = "0.0.1-alpha"
 kotlinGradlePlugin = "1.9.23"
 daggerHiltPlugin = "2.44"
 kspPlugin = "1.9.23-1.0.20"
 composeBom = "2024.04.01"
-activityCompose = "1.8.2"
-coreKtx = "1.12.0"
+activityCompose = "1.9.0"
+coreKtx = "1.13.0"
 espressoCore = "3.5.1"
 hiltAndroid = "2.51.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 lifecycleRuntimeKtx = "2.7.0"
 navVersion = "2.7.7"
-runtimeLivedata = "1.6.6"
+runtimeLivedata = "1.6.7"
 googleFonts = "1.6.6"
+googleServices = "4.4.1"
 
 [libraries]
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
@@ -25,6 +27,7 @@ androidx-junit = { module = "androidx.test.ext:junit", version.ref = "junitVersi
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
 jetpackbrazilfields = { module = "dev.thiaago:jetpackbrazilfields", version.ref = "jetpackbrazilfieldsVersion" }
@@ -37,9 +40,11 @@ compose-ui-testing = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 google-fonts = {module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "googleFonts"}
+google-analytics = {module = "com.google.firebase:firebase-analytics"}
 
 [plugins]
 android-application = {id = "com.android.application", version.ref = "androidGradlePlugin"}
 kotlin-android= {id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin"}
 dagger-hilt-android = {id = "com.google.dagger.hilt.android", version.ref = "daggerHiltPlugin"}
 ksp = {id = "com.google.devtools.ksp", version.ref = "kspPlugin"}
+google-services = {id = "com.google.gms.google-services", version.ref="googleServices"}

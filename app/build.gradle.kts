@@ -1,11 +1,11 @@
 import java.util.Properties
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
 }
 
 val appPropertiesFile = file("$rootDir/app.properties")
@@ -85,6 +85,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.google.fonts)
     implementation(libs.jetpackbrazilfields)
+    implementation(libs.google.analytics)
+    implementation(platform(libs.firebase.bom))
 
     ksp(libs.hilt.android.compiler)
 
