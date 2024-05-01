@@ -1,5 +1,8 @@
 package dev.thiaago.finn.features.login.ui.screens
 
+import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,14 +23,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.tasks.Task
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.login.ui.components.LoginButton
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(googleSignInClient: GoogleSignInClient?, navigateToHome: () -> Unit) {
+    val startForResult =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task: Task<GoogleSignInAccount> =
+                    GoogleSignIn.getSignedInAccountFromIntent(result.data)
+
+                task.addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        navigateToHome()
+                    }
+                }
+            }
+        }
+
     FinnTheme {
         val colorScheme = MaterialTheme.colorScheme
-        Scaffold() { paddingValues ->
+        Scaffold { paddingValues ->
             Column(
                 Modifier
                     .padding(paddingValues)
@@ -74,15 +95,18 @@ fun LoginScreen() {
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 LoginButton {
-
+                    googleSignInClient?.signInIntent?.let {
+                        startForResult.launch(it)
+                    }
                 }
             }
         }
     }
 }
 
+
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(googleSignInClient = null, navigateToHome = {})
 }

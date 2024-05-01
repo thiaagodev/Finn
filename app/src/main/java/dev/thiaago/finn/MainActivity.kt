@@ -12,10 +12,24 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dev.thiaago.finn.core.ui.theme.FinnTheme
+import dev.thiaago.finn.features.home.ui.screens.HomeScreen
 import dev.thiaago.finn.features.login.ui.screens.LoginScreen
 
 class MainActivity : ComponentActivity() {
+
+    private fun getGoogleLoginAuth(): GoogleSignInClient {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(getString(R.string.googleServerID))
+            .build()
+
+        return GoogleSignIn.getClient(this, gso)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -34,7 +48,16 @@ class MainActivity : ComponentActivity() {
                                 startDestination = "/",
                             ) {
                                 composable("/") {
-                                    LoginScreen()
+                                    LoginScreen(
+                                        googleSignInClient = getGoogleLoginAuth(),
+                                        navigateToHome = {
+                                            navController.navigate("/home")
+                                            navController.clearBackStack("/")
+                                        }
+                                    )
+                                }
+                                composable("/home") {
+                                    HomeScreen()
                                 }
                             }
                         },

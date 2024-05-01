@@ -36,6 +36,8 @@ android {
 
         signingConfig = signingConfigs.getByName("finn")
 
+        resValue("string", "googleServerID", appProperties["googleServerId"].toString())
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -43,8 +45,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.findByName("finn")
+        }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.findByName("finn")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -87,6 +93,8 @@ dependencies {
     implementation(libs.jetpackbrazilfields)
     implementation(libs.google.analytics)
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
 
     ksp(libs.hilt.android.compiler)
 
