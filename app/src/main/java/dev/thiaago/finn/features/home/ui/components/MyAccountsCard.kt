@@ -12,11 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +42,7 @@ fun MyAccountsCard(modifier: Modifier = Modifier) {
         Surface(
             shape = RoundedCornerShape(15.dp),
             shadowElevation = 4.dp,
-            ) {
+        ) {
             Column(
                 Modifier
                     .fillMaxSize()
@@ -50,25 +51,27 @@ fun MyAccountsCard(modifier: Modifier = Modifier) {
             ) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .background(FinnColors.darkGreen)
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
                 ) {
                     Text(
                         "Minhas contas",
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(vertical = 16.dp, horizontal = 32.dp)
+                        color = MaterialTheme.colorScheme.onPrimary,
                     )
                     Spacer(Modifier.weight(1f))
                     FilledIconButton(
                         onClick = { /*TODO*/ },
                         colors = IconButtonDefaults.filledIconButtonColors(containerColor = FinnColors.darkGreen),
-                        modifier = Modifier
-                            .padding(vertical = 8.dp, horizontal = 8.dp)
-                            .size(32.dp)
+                        modifier = Modifier.size(32.dp)
                     ) {
                         Icon(
-                            Icons.Filled.Add,
+                            Icons.Outlined.AddCircle,
                             contentDescription = "Adicionar conta",
                             tint = Color.White,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(32.dp)
                         )
                     }
                 }
