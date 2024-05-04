@@ -3,9 +3,11 @@ package dev.thiaago.finn.features.home.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -53,6 +55,7 @@ fun HomeScreen() {
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                     )
+                    Spacer(modifier = Modifier.height(32.dp))
                     IncomeAndExpensesSection(income = 3000.89, expenses = 2400.55)
                 }
             }
