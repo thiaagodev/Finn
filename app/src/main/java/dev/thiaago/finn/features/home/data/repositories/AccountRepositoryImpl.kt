@@ -10,9 +10,9 @@ import dev.thiaago.finn.features.home.domain.repositories.AccountRepository
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class AccountRepositoryImpl @Inject constructor(
+class AccountRepositoryImpl @Inject constructor() : AccountRepository {
     private val db: FirebaseFirestore = Firebase.firestore
-) : AccountRepository {
+
     override suspend fun createAccount(accountEntity: AccountEntity): Result<Boolean> {
         return try {
             db.collection(FirebaseCollections.ACCOUNT)

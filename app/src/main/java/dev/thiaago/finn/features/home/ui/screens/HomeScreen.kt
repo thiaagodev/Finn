@@ -22,12 +22,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dev.thiaago.finn.core.extensions.firstWord
 import dev.thiaago.finn.core.extensions.isDay
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
+import dev.thiaago.finn.features.home.ui.viewmodels.AccountViewModel
 import java.time.LocalDateTime
 
 @Composable
@@ -35,6 +37,8 @@ fun HomeScreen() {
     val loggedUser by remember {
         mutableStateOf(FirebaseAuth.getInstance().currentUser)
     }
+
+    val accountViewModel: AccountViewModel = hiltViewModel()
 
     FinnTheme {
         Box(Modifier.fillMaxSize()) {

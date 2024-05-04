@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import dev.thiaago.finn.core.ui.components.SplashScreen
 import dev.thiaago.finn.core.ui.navigation.homeGraph
 import dev.thiaago.finn.core.ui.navigation.loginRoute
@@ -24,6 +25,7 @@ import dev.thiaago.finn.core.ui.theme.FinnTheme
 
 const val splashRoute = "splash"
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
