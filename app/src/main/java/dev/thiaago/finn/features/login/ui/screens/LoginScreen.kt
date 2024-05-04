@@ -31,6 +31,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import dev.thiaago.finn.R
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.login.ui.components.LoginButton
@@ -43,6 +44,7 @@ fun LoginScreen(onNavigateToHome: () -> Unit) {
     fun getGoogleLoginAuth(): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
+            .requestProfile()
             .requestIdToken(activity.getString(R.string.googleServerID))
             .build()
 
@@ -55,13 +57,20 @@ fun LoginScreen(onNavigateToHome: () -> Unit) {
                 val task: Task<GoogleSignInAccount> =
                     GoogleSignIn.getSignedInAccountFromIntent(result.data)
 
-                task.addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val account = it.result
+                task.addOnCompleteListener { googleSignInAccountTask ->
+                    if (googleSignInAccountTask.isSuccessful) {
+                        val account = googleSignInAccountTask.result
                         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-                        FirebaseAuth.getInstance().signInWithCredential(credential)
 
-                        onNavigateToHome()
+                        FirebaseAuth.getInstance().signInWithCredential(credential)
+                            .addOnCompleteListener {
+                                it.result.user?.updateProfile(
+                                    UserProfileChangeRequest.Builder()
+                                        .setDisplayName(account.displayName).build()
+                                )
+
+                                onNavigateToHome()
+                            }
                     }
                 }
             }

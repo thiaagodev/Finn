@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +32,9 @@ import java.time.LocalDateTime
 
 @Composable
 fun HomeScreen() {
-    val loggedUser = FirebaseAuth.getInstance().currentUser
+    val loggedUser by remember {
+        mutableStateOf(FirebaseAuth.getInstance().currentUser)
+    }
 
     FinnTheme {
         Box(Modifier.fillMaxSize()) {
@@ -47,10 +52,10 @@ fun HomeScreen() {
                     )
             ) {
                 Column(Modifier.padding(32.dp)) {
-                    val welcomeText = if (LocalDateTime.now().isDay() ) "Bom dia" else "Boa noite"
+                    val welcomeText = if (LocalDateTime.now().isDay()) "Bom dia" else "Boa noite"
 
                     Text(
-                        "$welcomeText,\n${loggedUser?.displayName?.firstWord()}",
+                        "$welcomeText,\n${loggedUser?.displayName?.firstWord() ?: ""}",
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
