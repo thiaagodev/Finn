@@ -78,26 +78,35 @@ android {
 }
 
 dependencies {
+    // Androidx
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
+
+    // Compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.material3)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.runtime.livedata)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.hilt.android)
-    implementation(libs.google.fonts)
-    implementation(libs.jetpackbrazilfields)
+    implementation(libs.lottie.compose)
+
+    // Firebase
     implementation(libs.google.analytics)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
-    implementation(libs.lottie.compose)
 
+    // Hilt
+    implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+
+    // Others
+    implementation(libs.google.fonts)
+    implementation(libs.jetpackbrazilfields)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -106,6 +115,4 @@ dependencies {
     androidTestImplementation(libs.compose.ui.testing)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
-
-
 }
