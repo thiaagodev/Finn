@@ -1,6 +1,6 @@
 [versions]
 androidGradlePlugin = "8.3.2"
-firebaseAuthKtx = "22.3.1"
+firebaseAuthKtx = "23.0.0"
 firebaseBom = "32.8.1"
 jetpackbrazilfieldsVersion = "0.0.1-alpha"
 kotlinGradlePlugin = "1.9.23"
@@ -14,6 +14,7 @@ hiltAndroid = "2.51.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 lifecycleRuntimeKtx = "2.7.0"
+lottieCompose = "4.0.0"
 navVersion = "2.7.7"
 playServicesAuth = "20.7.0"
 runtimeLivedata = "1.6.7"
@@ -38,6 +39,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 material3 = { module = "androidx.compose.material3:material3" }
 compose-ui-testing = { module = "androidx.compose.ui:ui-test-junit4" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }

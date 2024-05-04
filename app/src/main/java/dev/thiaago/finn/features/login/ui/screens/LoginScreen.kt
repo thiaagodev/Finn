@@ -29,6 +29,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import dev.thiaago.finn.R
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.login.ui.components.LoginButton
@@ -54,7 +56,11 @@ fun LoginScreen(onNavigateToHome: () -> Unit) {
                     GoogleSignIn.getSignedInAccountFromIntent(result.data)
 
                 task.addOnCompleteListener {
-                    if(it.isSuccessful) {
+                    if (it.isSuccessful) {
+                        val account = it.result
+                        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                        FirebaseAuth.getInstance().signInWithCredential(credential)
+
                         onNavigateToHome()
                     }
                 }

@@ -95,6 +95,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth.ktx)
     implementation(libs.play.services.auth)
+    implementation(libs.lottie.compose)
 
     ksp(libs.hilt.android.compiler)
 
