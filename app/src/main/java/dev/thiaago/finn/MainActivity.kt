@@ -10,25 +10,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import dev.thiaago.finn.core.ui.navigation.homeScreen
+import dev.thiaago.finn.core.ui.navigation.loginRoute
+import dev.thiaago.finn.core.ui.navigation.loginScreen
+import dev.thiaago.finn.core.ui.navigation.navigateToHomeAndReplace
 import dev.thiaago.finn.core.ui.theme.FinnTheme
-import dev.thiaago.finn.features.home.ui.screens.HomeScreen
-import dev.thiaago.finn.features.login.ui.screens.LoginScreen
 
 class MainActivity : ComponentActivity() {
-
-    private fun getGoogleLoginAuth(): GoogleSignInClient {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .requestIdToken(getString(R.string.googleServerID))
-            .build()
-
-        return GoogleSignIn.getClient(this, gso)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,20 +34,12 @@ class MainActivity : ComponentActivity() {
                             NavHost(
                                 modifier = Modifier.padding(paddingValues),
                                 navController = navController,
-                                startDestination = "/",
+                                startDestination = loginRoute,
                             ) {
-                                composable("/") {
-                                    LoginScreen(
-                                        googleSignInClient = getGoogleLoginAuth(),
-                                        navigateToHome = {
-                                            navController.navigate("/home")
-                                            navController.clearBackStack("/")
-                                        }
-                                    )
-                                }
-                                composable("/home") {
-                                    HomeScreen()
-                                }
+                                loginScreen(onNavigateToHome = {
+                                    navController.navigateToHomeAndReplace()
+                                })
+                                homeScreen()
                             }
                         },
 //                        bottomBar = {

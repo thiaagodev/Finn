@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,12 +27,26 @@ import androidx.compose.ui.unit.sp
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
+import dev.thiaago.finn.R
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.login.ui.components.LoginButton
 
 @Composable
-fun LoginScreen(googleSignInClient: GoogleSignInClient?, navigateToHome: () -> Unit) {
+fun LoginScreen(onNavigateToHome: () -> Unit) {
+
+    val activity = LocalContext.current as Activity
+
+    fun getGoogleLoginAuth(): GoogleSignInClient {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .requestIdToken(activity.getString(R.string.googleServerID))
+            .build()
+
+        return GoogleSignIn.getClient(activity, gso)
+    }
+
     val startForResult =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -40,7 +55,7 @@ fun LoginScreen(googleSignInClient: GoogleSignInClient?, navigateToHome: () -> U
 
                 task.addOnCompleteListener {
                     if(it.isSuccessful) {
-                        navigateToHome()
+                        onNavigateToHome()
                     }
                 }
             }
@@ -95,7 +110,8 @@ fun LoginScreen(googleSignInClient: GoogleSignInClient?, navigateToHome: () -> U
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 LoginButton {
-                    googleSignInClient?.signInIntent?.let {
+                    val googleSignInClient = getGoogleLoginAuth()
+                    googleSignInClient.signInIntent.let {
                         startForResult.launch(it)
                     }
                 }
@@ -108,5 +124,5 @@ fun LoginScreen(googleSignInClient: GoogleSignInClient?, navigateToHome: () -> U
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun LoginScreenPreview() {
-    LoginScreen(googleSignInClient = null, navigateToHome = {})
+    LoginScreen(onNavigateToHome = {})
 }
