@@ -17,12 +17,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
+import dev.thiaago.finn.core.extensions.firstWord
+import dev.thiaago.finn.core.extensions.isDay
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
+import java.time.LocalDateTime
 
 @Composable
 fun HomeScreen() {
+    val loggedUser = FirebaseAuth.getInstance().currentUser
+
     FinnTheme {
         Box(Modifier.fillMaxSize()) {
             Box(
@@ -39,10 +45,12 @@ fun HomeScreen() {
                     )
             ) {
                 Column(Modifier.padding(32.dp)) {
+                    val welcomeText = if (LocalDateTime.now().isDay() ) "Bom dia" else "Boa noite"
+
                     Text(
-                        "Home",
+                        "$welcomeText,\n${loggedUser?.displayName?.firstWord()}",
                         color = MaterialTheme.colorScheme.onPrimary,
-                        fontSize = 24.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     IncomeAndExpensesSection(income = 3000.89, expenses = 2400.55)
