@@ -6,13 +6,16 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/thiaagodev/Jetpack-Brazil-Fields")
+            credentials {
+                username = System.getenv("GPR_USER")
+                password = System.getenv("GPR_API_KEY")
+            }
         }
     }
 }

@@ -112,7 +112,7 @@ fun AccountItem(account: AccountEntity, showDivider: Boolean) {
                 )
             )
             Text(
-                text = account.balance.toString().centsToRealDouble().toBrazilianCurrency(),
+                text = account.balance.centsToRealDouble().toBrazilianCurrency(),
                 style = TextStyle(
                     color = if (account.balance > 0)
                         FinnColors.moneyColor else FinnColors.errorColor,
