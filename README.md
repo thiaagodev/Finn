@@ -4,6 +4,7 @@
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-download">Download</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 <br>
 
@@ -37,4 +38,4 @@ Desenvolvido por Thiago Ferreira :wave:
 
 Este projeto está licenciado sob a Creative Commons Attribution-NonCommercial 4.0 International Public License. Isso significa que você pode visualizar, modificar e compartilhar o código para fins não comerciais, desde que forneça atribuição ao autor original.
 
-Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
+Para mais detalhes, consulte o arquivo [LICENSE](LICENSE.md).
