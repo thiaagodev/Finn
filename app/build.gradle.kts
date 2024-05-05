@@ -92,6 +92,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.lottie.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Firebase
     implementation(libs.google.analytics)

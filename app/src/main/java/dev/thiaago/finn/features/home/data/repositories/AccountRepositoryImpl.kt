@@ -34,7 +34,11 @@ class AccountRepositoryImpl @Inject constructor() : AccountRepository {
                 .documents
 
             val accountEntityList = accounts.map {
-                AccountEntity.fromMap(it.data ?: mapOf())
+                val accountMap = it.data?.apply {
+                    this["id"] = it.id
+                }
+
+                AccountEntity.fromMap(accountMap ?: mapOf())
             }.toList()
 
             Result.success(accountEntityList)
