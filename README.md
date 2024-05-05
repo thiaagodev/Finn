@@ -32,3 +32,9 @@ Assim que finalizado o download será disponibilizado
 ---
 
 Desenvolvido por Thiago Ferreira :wave:
+
+## Licença
+
+Este projeto está licenciado sob a Creative Commons Attribution-NonCommercial 4.0 International Public License. Isso significa que você pode visualizar, modificar e compartilhar o código para fins não comerciais, desde que forneça atribuição ao autor original.
+
+Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
