@@ -6,25 +6,20 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import dev.thiaago.finn.core.entities.InputValue
+import dev.thiaago.finn.core.extensions.validateIsNotEmpty
 import dev.thiaago.finn.core.ui.components.BottomSheetHeader
+import dev.thiaago.finn.core.ui.components.CustomOutlinedTextField
 import dev.thiaago.finn.core.ui.components.SimpleButton
-import dev.thiaago.finn.core.ui.theme.FinnColors
 
 @Composable
 fun CreateAccountBottomSheet(
@@ -42,57 +37,27 @@ fun CreateAccountBottomSheet(
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        Text(
-            text = "Nome da conta",
-            style = TextStyle(
-                color = Color.Gray,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
-            )
-        )
-
-        var accountName by remember {
-            mutableStateOf("")
-        }
-
-        var isError by remember {
-            mutableStateOf(false)
-        }
-
-        OutlinedTextField(
-            modifier = Modifier.padding(top = 8.dp),
-            value = accountName,
-            placeholder = {
-                Text(
-                    text = "Insira o nome da conta",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        color = Color.Gray
-                    ),
+        val accountName by remember {
+            mutableStateOf(
+                InputValue(
+                    "",
+                    onValidate = {
+                        return@InputValue it.validateIsNotEmpty("Insira o nome da sua conta")
+                    }
                 )
-            },
-            textStyle = TextStyle(
-                fontSize = 16.sp
-            ),
-            shape = RoundedCornerShape(16.dp),
-            maxLines = 1,
-            singleLine = true,
-            onValueChange = {
-                accountName = it
-                isError = accountName.isEmpty()
-            },
-            isError = isError,
-        )
-
-        if (isError) {
-            Text(
-                text = "Nome da conta deve ser válido",
-                style = TextStyle(
-                    color = FinnColors.errorColor
-                ),
-                modifier = Modifier.padding(8.dp)
             )
         }
+
+        CustomOutlinedTextField(
+            label = "Cadastrar Conta",
+            placeholder = "Insira o nome da conta",
+            value = accountName.field.collectAsState().value,
+            error = accountName.error.collectAsState().value,
+            onValueChanged = {
+                accountName.field.value = it
+                accountName.validate()
+            }
+        )
 
         Spacer(modifier = Modifier.height(48.dp))
 
@@ -105,10 +70,8 @@ fun CreateAccountBottomSheet(
                 Modifier.align(Alignment.BottomCenter),
                 text = "Confirmar"
             ) {
-                if (accountName.isEmpty()) {
-                    isError = true
-                } else {
-                    onConfirm(accountName)
+                if (accountName.validate()) {
+                    onConfirm(accountName.field.value)
                     onClose()
                 }
             }

@@ -2,6 +2,7 @@ package dev.thiaago.finn.features.home.data.repositories
 
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import dev.thiaago.finn.core.data.FirebaseCollections
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
@@ -29,6 +30,7 @@ class AccountRepositoryImpl @Inject constructor() : AccountRepository {
     override suspend fun getAccountList(): Result<List<AccountEntity>> {
         return try {
             val accounts = db.collection(FirebaseCollections.ACCOUNT)
+                .orderBy(AccountEntity.BALANCE, Query.Direction.DESCENDING)
                 .get()
                 .await()
                 .documents
