@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -68,6 +69,9 @@ fun HomeScreen() {
             ModalBottomSheet(
                 containerColor = Color.White,
                 tonalElevation = 0.dp,
+                sheetState = rememberModalBottomSheetState(
+                    skipPartiallyExpanded = true
+                ),
                 onDismissRequest = {
                     showCreateAccountBottomSheet = false
                 },

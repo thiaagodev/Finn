@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import dev.thiaago.finn.core.ui.components.BottomSheetHeader
 import dev.thiaago.finn.core.ui.components.SimpleButton
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateAccountBottomSheet(onClose: () -> Unit) {
     Column(
@@ -71,7 +70,7 @@ fun CreateAccountBottomSheet(onClose: () -> Unit) {
         Box(
             Modifier
                 .fillMaxWidth()
-                .padding(32.dp)
+                .padding(48.dp)
         ) {
             SimpleButton(
                 Modifier.align(Alignment.BottomCenter),
