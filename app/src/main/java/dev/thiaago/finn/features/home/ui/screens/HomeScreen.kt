@@ -42,6 +42,7 @@ import dev.thiaago.finn.core.extensions.firstWord
 import dev.thiaago.finn.core.extensions.isDay
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.core.ui.theme.FinnTheme
+import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import dev.thiaago.finn.features.home.ui.components.AccountItem
 import dev.thiaago.finn.features.home.ui.components.CreateAccountBottomSheet
 import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
@@ -79,6 +80,14 @@ fun HomeScreen() {
                     CreateAccountBottomSheet(
                         onClose = {
                             showCreateAccountBottomSheet = false
+                        },
+                        onConfirm = {accountName ->
+                            accountViewModel.createAccount(
+                                AccountEntity(
+                                    ownerId = loggedUser?.uid,
+                                    name = accountName
+                                )
+                            )
                         }
                     )
                 }

@@ -3,6 +3,7 @@ package dev.thiaago.finn.features.home.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import dev.thiaago.finn.features.home.domain.usecases.CreateAccountUseCase
 import dev.thiaago.finn.features.home.domain.usecases.GetAccountListUseCase
 import dev.thiaago.finn.features.home.ui.states.AccountState
@@ -23,7 +24,7 @@ class AccountViewModel @Inject constructor(
         getAccountList()
     }
 
-    fun getAccountList() {
+    private fun getAccountList() {
         viewModelScope.launch {
             _accountListState.value = AccountState.GetListAccountLoading
             val accountList = getAccountListUseCase()
@@ -37,6 +38,14 @@ class AccountViewModel @Inject constructor(
                     _accountListState.value = AccountState.GetListAccountError
                 }
             )
+        }
+    }
+
+    fun createAccount(accountEntity: AccountEntity) {
+        viewModelScope.launch {
+            createAccountUseCase(accountEntity)
+
+            getAccountList()
         }
     }
 }
