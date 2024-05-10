@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CircularProgressIndicator
@@ -132,11 +133,14 @@ fun HomeScreen() {
                 content = {
                     when (val accountState = accountListState.value) {
                         is AccountState.GetListAccountSuccess -> {
-                            accountState.accounts.forEachIndexed { index, account ->
-                                AccountItem(
-                                    account = account,
-                                    showDivider = index < (accountState.accounts.size - 1)
-                                )
+                            LazyColumn {
+                                items(count = accountState.accounts.size) { index ->
+                                    val account = accountState.accounts[index]
+                                    AccountItem(
+                                        account = account,
+                                        showDivider = index < (accountState.accounts.size - 1)
+                                    )
+                                }
                             }
                         }
 
