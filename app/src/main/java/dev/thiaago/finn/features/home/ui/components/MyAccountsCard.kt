@@ -43,6 +43,7 @@ import dev.thiaago.jetpackbrazilfields.extensions.toBrazilianCurrency
 fun MyAccountsCard(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = {},
+    onAddAccountPressed: () -> Unit,
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp
 
@@ -76,7 +77,7 @@ fun MyAccountsCard(
                     )
                     Spacer(Modifier.weight(1f))
                     FilledIconButton(
-                        onClick = { /*TODO*/ },
+                        onClick = onAddAccountPressed,
                         colors = IconButtonDefaults.filledIconButtonColors(containerColor = FinnColors.darkGreen),
                         modifier = Modifier.size(32.dp)
                     ) {
@@ -152,5 +153,6 @@ private fun MyAccountsCardPrev() {
                 )
             }
         },
+        onAddAccountPressed = {}
     )
 }

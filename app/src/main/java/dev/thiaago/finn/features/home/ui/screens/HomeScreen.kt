@@ -15,17 +15,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,12 +42,14 @@ import dev.thiaago.finn.core.extensions.isDay
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.home.ui.components.AccountItem
+import dev.thiaago.finn.features.home.ui.components.CreateAccountBottomSheet
 import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
 import dev.thiaago.finn.features.home.ui.states.AccountState
 import dev.thiaago.finn.features.home.ui.viewmodels.AccountViewModel
 import java.time.LocalDateTime
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
     val loggedUser by remember {
@@ -53,7 +59,29 @@ fun HomeScreen() {
     val accountViewModel: AccountViewModel = hiltViewModel()
     val accountListState = accountViewModel.accountListState.collectAsState()
 
+    var showCreateAccountBottomSheet by remember {
+        mutableStateOf(false)
+    }
+
     FinnTheme {
+        if (showCreateAccountBottomSheet) {
+            ModalBottomSheet(
+                containerColor = Color.White,
+                tonalElevation = 0.dp,
+                onDismissRequest = {
+                    showCreateAccountBottomSheet = false
+                },
+                content = {
+                    CreateAccountBottomSheet(
+                        onClose = {
+                            showCreateAccountBottomSheet = false
+                        }
+                    )
+                }
+            )
+
+        }
+
         Box(Modifier.fillMaxSize()) {
             Box(
                 Modifier
@@ -85,6 +113,9 @@ fun HomeScreen() {
 
             MyAccountsCard(
                 Modifier.offset(y = 200.dp),
+                onAddAccountPressed = {
+                    showCreateAccountBottomSheet = true
+                },
                 content = {
                     when (val accountState = accountListState.value) {
                         is AccountState.GetListAccountSuccess -> {
