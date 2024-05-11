@@ -18,11 +18,10 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -46,14 +45,14 @@ fun CreateExpenseBottomSheet(
             .background(Color.White)
     ) {
 
-        var selectedTab by remember {
-            mutableIntStateOf(0)
-        }
-
         val pagerState = rememberPagerState(
-            initialPage = selectedTab,
+            initialPage = 0,
             pageCount = { 2 }
         )
+
+        val selectedTab by remember {
+            derivedStateOf { pagerState.currentPage }
+        }
 
 
         TabRow(
@@ -91,8 +90,7 @@ fun CreateExpenseBottomSheet(
                     selected = index == selectedTab,
                     onClick = {
                         coroutineScope.launch {
-                            selectedTab = index
-                            pagerState.animateScrollToPage(selectedTab)
+                            pagerState.animateScrollToPage(index)
                         }
                     }
                 ) {
