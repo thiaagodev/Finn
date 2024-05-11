@@ -1,6 +1,5 @@
 package dev.thiaago.finn.core.ui.components
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -23,7 +22,11 @@ import dev.thiaago.finn.R
 import dev.thiaago.finn.core.ui.theme.FinnTheme
 
 @Composable
-fun HomeBottomAppBar() {
+fun HomeBottomAppBar(
+    onHomePressed: () -> Unit = {},
+    onCashFlowPressed: () -> Unit = {},
+    onAddExpensePressed: () -> Unit = {}
+) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primary,
         tonalElevation = 0.dp,
@@ -33,7 +36,7 @@ fun HomeBottomAppBar() {
                 Icon(
                     modifier = Modifier.size(32.dp),
                     imageVector = Icons.Filled.Home,
-                    contentDescription = "Home",
+                    contentDescription = "Inicio",
                     tint = MaterialTheme.colorScheme.primaryContainer
                 )
             }
@@ -42,7 +45,7 @@ fun HomeBottomAppBar() {
                 Icon(
                     modifier = Modifier.size(32.dp),
                     painter = painterResource(id = R.drawable.outline_payments_24),
-                    contentDescription = "Home"
+                    contentDescription = "Fluxo de caixa"
                 )
             }
         },
@@ -50,7 +53,7 @@ fun HomeBottomAppBar() {
             SmallFloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
-                onClick = { /*TODO*/ },
+                onClick = onAddExpensePressed,
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,

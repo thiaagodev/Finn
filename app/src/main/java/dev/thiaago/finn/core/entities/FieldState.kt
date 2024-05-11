@@ -1,13 +1,15 @@
 package dev.thiaago.finn.core.entities
-import kotlinx.coroutines.flow.MutableStateFlow
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import dev.thiaago.finn.core.validators.Validator
 
 class FieldState(
     field: String,
-    private val validators: List<Validator>
+    private val validators: List<Validator> = listOf(),
 ) {
-    var field = MutableStateFlow(field)
+    var field = mutableStateOf(field)
 
-    var error = MutableStateFlow<String?>(null)
+    var error: MutableState<String?> = mutableStateOf(null)
         private set
 
     fun validate(): Boolean {
@@ -20,8 +22,9 @@ class FieldState(
         if(errors.isEmpty()) {
             error.value = null
         } else {
+            error.value = ""
             errors.forEach {
-                error.value = "${it}\n"
+                error.value += "${it}\n"
             }
         }
 

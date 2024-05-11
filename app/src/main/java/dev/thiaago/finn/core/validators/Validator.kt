@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.entities
+package dev.thiaago.finn.core.validators
 
 interface Validator {
     fun validate(value: String): String?
