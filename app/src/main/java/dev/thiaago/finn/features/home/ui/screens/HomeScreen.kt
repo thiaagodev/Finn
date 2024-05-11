@@ -120,7 +120,7 @@ fun HomeScreen() {
                         fontWeight = FontWeight.Bold,
                     )
                     Spacer(modifier = Modifier.height(32.dp))
-                    IncomeAndExpensesSection(income = 3000.89, expenses = 2400.55)
+                    IncomeAndExpensesSection(income = 0.0, expenses = 0.0)
                 }
             }
 

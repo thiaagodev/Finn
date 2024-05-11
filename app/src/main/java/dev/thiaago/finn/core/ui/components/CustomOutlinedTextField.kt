@@ -40,7 +40,7 @@ fun CustomOutlinedTextField(
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
-            value = field.value.toString(),
+            value = field.value,
             placeholder = {
                 Text(
                     text = placeholder,

@@ -36,14 +36,10 @@ fun CreateAccountBottomSheet(
         )
         Spacer(modifier = Modifier.height(32.dp))
 
-        val accountNameState by remember {
-            mutableStateOf(
-                FieldState(
-                    field = "",
-                    validators = listOf(IsNotEmptyValidator("Insira o nome da sua conta"))
-                )
-            )
-        }
+        val accountNameState = FieldState(
+            field = "",
+            validators = listOf(IsNotEmptyValidator("Insira o nome da sua conta"))
+        )
 
         CustomOutlinedTextField(
             label = "Cadastrar Conta",
