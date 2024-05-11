@@ -8,23 +8,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.thiaago.finn.core.entities.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 
 @Composable
 fun CustomOutlinedTextField(
     modifier: Modifier = Modifier,
-    value: String,
     label: String,
     placeholder: String,
-    error: String?,
-    onValueChanged: (value: String) -> Unit
+    fieldState: FieldState,
+    validateOnChange: Boolean = false,
 ) {
+    val field = fieldState.field.collectAsState()
+    val error = fieldState.error.collectAsState()
 
     Column(modifier = modifier) {
         Text(
@@ -37,7 +40,7 @@ fun CustomOutlinedTextField(
         )
         Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
-            value = value,
+            value = field.value.toString(),
             placeholder = {
                 Text(
                     text = placeholder,
@@ -53,13 +56,18 @@ fun CustomOutlinedTextField(
             shape = RoundedCornerShape(16.dp),
             maxLines = 1,
             singleLine = true,
-            onValueChange = onValueChanged,
-            isError = error?.isEmpty() == false,
+            onValueChange = {
+                fieldState.field.value = it
+                if(validateOnChange) {
+                    fieldState.validate()
+                }
+            },
+            isError = error.value?.isEmpty() == false,
         )
 
-        if (error?.isEmpty() == false) {
+        if (error.value?.isEmpty() == false) {
             Text(
-                text = error,
+                text = error.value ?: "",
                 style = TextStyle(
                     color = FinnColors.errorColor
                 ),
