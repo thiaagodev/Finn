@@ -107,10 +107,13 @@ fun AccountItem(account: AccountEntity, showDivider: Boolean) {
             horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = account.name, style = TextStyle(
+                text = account.name,
+                style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
-                )
+                ),
+                maxLines = 2,
+                modifier = Modifier.fillMaxWidth(0.6f)
             )
             Text(
                 text = account.balance.centsToRealDouble().toBrazilianCurrency(),
@@ -141,7 +144,7 @@ private fun MyAccountsCardPrev() {
         content = {
             val accountList = listOf(
                 AccountEntity(
-                    name = "Teste", balance = 1200
+                    name = "Teste asdasd asdsa  sqdasd asd asdas ", balance = 1200
                 ), AccountEntity(
                     name = "Teste", balance = -1200
                 )
