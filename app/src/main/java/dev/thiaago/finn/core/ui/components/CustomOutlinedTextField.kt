@@ -26,7 +26,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.thiaago.finn.core.entities.FieldState
+import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 
 @OptIn(ExperimentalMaterial3Api::class)

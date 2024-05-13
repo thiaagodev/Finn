@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.ui.components
+package dev.thiaago.finn.core.ui.components.homeHost
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.entities
+package dev.thiaago.finn.core.ui.state
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import dev.thiaago.finn.core.validators.Validator

@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.ui.components
+package dev.thiaago.finn.core.ui.components.homeHost
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -36,7 +36,6 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CreateExpenseBottomSheet(
-    onClose: () -> Unit,
     onConfirm: () -> Unit
 ) {
     Column(
@@ -114,7 +113,7 @@ fun CreateExpenseBottomSheet(
 @Preview(showSystemUi = true)
 @Composable
 private fun CreateExpenseBottomSheetPreview() {
-    CreateExpenseBottomSheet(onClose = { /*TODO*/ }) {
+    CreateExpenseBottomSheet() {
 
     }
 }

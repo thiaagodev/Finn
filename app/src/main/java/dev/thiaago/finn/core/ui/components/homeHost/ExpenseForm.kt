@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.ui.components
+package dev.thiaago.finn.core.ui.components.homeHost
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -26,10 +27,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.thiaago.finn.core.entities.FieldState
+import dev.thiaago.finn.core.ui.components.CustomOutlinedTextField
+import dev.thiaago.finn.core.ui.components.DatePickerInput
+import dev.thiaago.finn.core.ui.components.SimpleButton
+import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
+import java.util.Date
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpenseForm() {
     var valueMoney by remember {
@@ -76,12 +82,13 @@ fun ExpenseForm() {
                 fieldState = accountState
             )
 
-            val dateState = FieldState(field = "")
-            CustomOutlinedTextField(
-                label = "Data",
-                material3Label = true,
-                placeholder = "",
-                fieldState = dateState
+            var dateState by remember {
+                mutableStateOf<Date?>(null)
+            }
+            DatePickerInput(
+                onDateSelected = { date ->
+                    dateState = date
+                }
             )
 
             HorizontalDivider(
@@ -150,5 +157,4 @@ fun ExpenseForm() {
 @Composable
 private fun ExpenseFormPreview() {
     ExpenseForm()
-    
 }
