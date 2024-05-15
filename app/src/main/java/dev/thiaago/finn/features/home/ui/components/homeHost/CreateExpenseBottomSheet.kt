@@ -1,4 +1,4 @@
-package dev.thiaago.finn.core.ui.components.homeHost
+package dev.thiaago.finn.features.home.ui.components.homeHost
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

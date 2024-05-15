@@ -124,7 +124,6 @@ fun HomeScreen() {
                 }
             }
 
-
             MyAccountsCard(
                 Modifier.offset(y = 200.dp),
                 onAddAccountPressed = {
