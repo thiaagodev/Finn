@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.thiaago.finn.core.ui.theme.FinnColors
+import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
@@ -36,6 +37,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CreateExpenseBottomSheet(
+    accounts: List<AccountEntity> = listOf(),
     onConfirm: () -> Unit
 ) {
     Column(
@@ -104,7 +106,7 @@ fun CreateExpenseBottomSheet(
         }
 
         HorizontalPager(state = pagerState) { page ->
-            ExpenseForm()
+            ExpenseForm(accounts = accounts)
         }
     }
 

@@ -32,11 +32,14 @@ import dev.thiaago.finn.core.ui.components.InputChoices
 import dev.thiaago.finn.core.ui.components.SimpleButton
 import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
+import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
 import java.util.Date
 
 @Composable
-fun ExpenseForm() {
+fun ExpenseForm(
+    accounts: List<AccountEntity> = listOf(),
+) {
     var valueMoney by remember {
         mutableStateOf("")
     }
@@ -77,9 +80,7 @@ fun ExpenseForm() {
                 mutableStateOf("")
             }
             InputChoices(
-                items = listOf(
-                    "Nubank", "Inter"
-                ),
+                items = accounts.map { it.name },
                 placeholder = "Pago com",
                 title = "Selecionar conta",
                 onSelected = { value, index ->

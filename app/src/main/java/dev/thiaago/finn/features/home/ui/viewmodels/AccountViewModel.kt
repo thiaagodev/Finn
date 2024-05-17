@@ -24,7 +24,7 @@ class AccountViewModel @Inject constructor(
         getAccountList()
     }
 
-    private fun getAccountList() {
+    fun getAccountList() {
         viewModelScope.launch {
             _accountListState.value = AccountState.GetListAccountLoading
             val accountList = getAccountListUseCase()
