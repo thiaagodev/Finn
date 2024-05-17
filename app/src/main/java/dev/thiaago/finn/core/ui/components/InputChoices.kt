@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -39,9 +36,7 @@ fun InputChoices(
     var openChoicesBottomSheet by remember {
         mutableStateOf(false)
     }
-    val showClearIcon by remember {
-        mutableStateOf(false)
-    }
+
     var choice by remember {
         mutableStateOf("")
     }
@@ -95,17 +90,6 @@ fun InputChoices(
             },
             contentPadding = PaddingValues(12.dp),
             visualTransformation = VisualTransformation.None,
-            trailingIcon = {
-                if (showClearIcon && choice.isNotEmpty()) {
-                    Icon(
-                        modifier = Modifier.clickable {
-                            choice = ""
-                        },
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "Limpar"
-                    )
-                }
-            },
             interactionSource = remember {
                 MutableInteractionSource()
             }

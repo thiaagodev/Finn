@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -22,10 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.isDigitsOnly
 import dev.thiaago.finn.core.ui.components.CustomOutlinedTextField
 import dev.thiaago.finn.core.ui.components.DatePickerInput
 import dev.thiaago.finn.core.ui.components.InputChoices
@@ -33,12 +36,14 @@ import dev.thiaago.finn.core.ui.components.SimpleButton
 import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
+import dev.thiaago.finn.features.home.domain.entities.ReleaseType
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
 import java.util.Date
 
 @Composable
 fun ExpenseForm(
     accounts: List<AccountEntity> = listOf(),
+    onConfirm: () -> Unit = {},
 ) {
     var valueMoney by remember {
         mutableStateOf("")
@@ -52,50 +57,59 @@ fun ExpenseForm(
             modifier = Modifier.align(Alignment.End),
             value = valueMoney,
             visualTransformation = MoneyVisualTransformation(currencySymbol = "R$"),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number
+            ),
             textStyle = TextStyle(
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.End,
             ),
             onValueChange = {
-                valueMoney = it
+                if (it.isDigitsOnly()) {
+                    valueMoney = it
+                }
             }
         )
 
         Column(
             Modifier.padding(top = 32.dp),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            val descriptionState = FieldState(field = "")
-            CustomOutlinedTextField(
-                label = "Descrição",
-                material3Label = true,
-                placeholder = "",
-                fieldState = descriptionState,
-                showClearIcon = true
-            )
+            Column(
+                Modifier.fillMaxWidth(0.75f),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val descriptionState = FieldState(field = "")
+                CustomOutlinedTextField(
+                    label = "Descrição",
+                    material3Label = true,
+                    placeholder = "",
+                    fieldState = descriptionState,
+                    showClearIcon = true
+                )
 
-            var accountState by remember {
-                mutableStateOf("")
-            }
-            InputChoices(
-                items = accounts.map { it.name },
-                placeholder = "Pago com",
-                title = "Selecionar conta",
-                onSelected = { value, index ->
-                    accountState = value
-                },
-            )
-
-            var dateState by remember {
-                mutableStateOf<Date?>(null)
-            }
-            DatePickerInput(
-                onDateSelected = { date ->
-                    dateState = date
+                var accountState by remember {
+                    mutableStateOf("")
                 }
-            )
+                InputChoices(
+                    items = accounts.map { it.name },
+                    placeholder = "Pago com",
+                    title = "Selecionar conta",
+                    onSelected = { value, index ->
+                        accountState = value
+                    },
+                )
+
+                var dateState by remember {
+                    mutableStateOf<Date?>(null)
+                }
+                DatePickerInput(
+                    onDateSelected = { date ->
+                        dateState = date
+                    }
+                )
+            }
 
             HorizontalDivider(
                 modifier = Modifier.padding(top = 32.dp, bottom = 16.dp),
@@ -111,9 +125,12 @@ fun ExpenseForm(
                 )
             )
 
+            var releaseTypeState by remember {
+                mutableStateOf(ReleaseType.NORMAL)
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 InputChip(
-                    selected = false,
+                    selected = releaseTypeState == ReleaseType.FIXED,
                     shape = RoundedCornerShape(16.dp),
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
@@ -121,14 +138,20 @@ fun ExpenseForm(
                         disabledContainerColor = Color.White,
                         selectedContainerColor = FinnColors.lightGreen
                     ),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        releaseTypeState = if (releaseTypeState != ReleaseType.FIXED) {
+                            ReleaseType.FIXED
+                        } else {
+                            ReleaseType.NORMAL
+                        }
+                    },
                     label = {
                         Text(text = "Fixo")
                     }
                 )
 
                 InputChip(
-                    selected = true,
+                    selected = releaseTypeState == ReleaseType.INSTALLMENTS,
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
                         selectedLabelColor = Color.White,
@@ -136,7 +159,13 @@ fun ExpenseForm(
                         selectedContainerColor = FinnColors.lightGreen
                     ),
                     shape = RoundedCornerShape(16.dp),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        releaseTypeState = if (releaseTypeState != ReleaseType.INSTALLMENTS) {
+                            ReleaseType.INSTALLMENTS
+                        } else {
+                            ReleaseType.NORMAL
+                        }
+                    },
                     label = {
                         Text(text = "Parcelado")
                     }
