@@ -36,7 +36,7 @@ import dev.thiaago.finn.core.ui.components.SimpleButton
 import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
-import dev.thiaago.finn.features.home.domain.entities.ReleaseType
+import dev.thiaago.finn.features.home.domain.entities.RepeatReleaseMode
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
 import java.util.Date
 
@@ -126,11 +126,11 @@ fun ExpenseForm(
             )
 
             var releaseTypeState by remember {
-                mutableStateOf(ReleaseType.NORMAL)
+                mutableStateOf(RepeatReleaseMode.NO_REPEAT)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 InputChip(
-                    selected = releaseTypeState == ReleaseType.FIXED,
+                    selected = releaseTypeState == RepeatReleaseMode.FIXED,
                     shape = RoundedCornerShape(16.dp),
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
@@ -139,10 +139,10 @@ fun ExpenseForm(
                         selectedContainerColor = FinnColors.lightGreen
                     ),
                     onClick = {
-                        releaseTypeState = if (releaseTypeState != ReleaseType.FIXED) {
-                            ReleaseType.FIXED
+                        releaseTypeState = if (releaseTypeState != RepeatReleaseMode.FIXED) {
+                            RepeatReleaseMode.FIXED
                         } else {
-                            ReleaseType.NORMAL
+                            RepeatReleaseMode.NO_REPEAT
                         }
                     },
                     label = {
@@ -151,7 +151,7 @@ fun ExpenseForm(
                 )
 
                 InputChip(
-                    selected = releaseTypeState == ReleaseType.INSTALLMENTS,
+                    selected = releaseTypeState == RepeatReleaseMode.INSTALLMENTS,
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
                         selectedLabelColor = Color.White,
@@ -160,10 +160,10 @@ fun ExpenseForm(
                     ),
                     shape = RoundedCornerShape(16.dp),
                     onClick = {
-                        releaseTypeState = if (releaseTypeState != ReleaseType.INSTALLMENTS) {
-                            ReleaseType.INSTALLMENTS
+                        releaseTypeState = if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
+                            RepeatReleaseMode.INSTALLMENTS
                         } else {
-                            ReleaseType.NORMAL
+                            RepeatReleaseMode.NO_REPEAT
                         }
                     },
                     label = {
