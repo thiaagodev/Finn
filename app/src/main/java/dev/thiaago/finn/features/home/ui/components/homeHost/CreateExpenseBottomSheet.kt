@@ -105,7 +105,7 @@ fun CreateExpenseBottomSheet(
             }
         }
 
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(state = pagerState) {
             ExpenseForm(accounts = accounts)
         }
     }

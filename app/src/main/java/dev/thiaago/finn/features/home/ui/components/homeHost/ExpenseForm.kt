@@ -4,15 +4,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,6 +36,7 @@ import androidx.core.text.isDigitsOnly
 import dev.thiaago.finn.core.ui.components.CustomOutlinedTextField
 import dev.thiaago.finn.core.ui.components.DatePickerInput
 import dev.thiaago.finn.core.ui.components.InputChoices
+import dev.thiaago.finn.core.ui.components.InstallmentsBottomSheet
 import dev.thiaago.finn.core.ui.components.SimpleButton
 import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
@@ -40,6 +45,7 @@ import dev.thiaago.finn.features.home.domain.entities.RepeatReleaseMode
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
 import java.util.Date
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpenseForm(
     accounts: List<AccountEntity> = listOf(),
@@ -150,6 +156,36 @@ fun ExpenseForm(
                     }
                 )
 
+                var showInstallmentsBottomSheet by remember {
+                    mutableStateOf(false)
+                }
+                var installments: Int? by remember {
+                    mutableStateOf(null)
+                }
+
+                if (showInstallmentsBottomSheet) {
+                    ModalBottomSheet(
+                        windowInsets = WindowInsets(0.dp),
+                        containerColor = Color.White,
+                        tonalElevation = 0.dp,
+                        onDismissRequest = {
+                            showInstallmentsBottomSheet = false
+                        }
+                    ) {
+                        InstallmentsBottomSheet(
+                            onSelected = {
+                                showInstallmentsBottomSheet = false
+                                releaseTypeState = if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
+                                    RepeatReleaseMode.INSTALLMENTS
+                                } else {
+                                    RepeatReleaseMode.NO_REPEAT
+                                }
+
+                                installments = it
+                            }
+                        )
+                    }
+                }
                 InputChip(
                     selected = releaseTypeState == RepeatReleaseMode.INSTALLMENTS,
                     colors = InputChipDefaults.inputChipColors(
@@ -160,11 +196,7 @@ fun ExpenseForm(
                     ),
                     shape = RoundedCornerShape(16.dp),
                     onClick = {
-                        releaseTypeState = if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
-                            RepeatReleaseMode.INSTALLMENTS
-                        } else {
-                            RepeatReleaseMode.NO_REPEAT
-                        }
+                       showInstallmentsBottomSheet = true
                     },
                     label = {
                         Text(text = "Parcelado")
