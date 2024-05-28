@@ -2,11 +2,11 @@ package dev.thiaago.finn.features.home.domain.entities
 
 enum class ReleaseType {
     EXPENSE,
-    REVENUE;
+    INCOME;
 
     fun translatedType(): String = when (this) {
         EXPENSE -> "Despesa"
-        REVENUE -> "Receita"
+        INCOME -> "Receita"
     }
 
 }

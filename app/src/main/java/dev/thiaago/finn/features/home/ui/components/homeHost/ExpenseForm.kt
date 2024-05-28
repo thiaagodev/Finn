@@ -16,7 +16,6 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,6 +40,7 @@ import dev.thiaago.finn.core.ui.components.SimpleButton
 import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
+import dev.thiaago.finn.features.home.domain.entities.ReleaseType
 import dev.thiaago.finn.features.home.domain.entities.RepeatReleaseMode
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
 import java.util.Date
@@ -49,6 +49,7 @@ import java.util.Date
 @Composable
 fun ExpenseForm(
     accounts: List<AccountEntity> = listOf(),
+    releaseType: ReleaseType,
     onConfirm: () -> Unit = {},
 ) {
     var valueMoney by remember {
@@ -100,7 +101,7 @@ fun ExpenseForm(
                 }
                 InputChoices(
                     items = accounts.map { it.name },
-                    placeholder = "Pago com",
+                    placeholder = if (releaseType == ReleaseType.EXPENSE) "Pago com" else "Recebido em",
                     title = "Selecionar conta",
                     onSelected = { value, index ->
                         accountState = value
@@ -175,11 +176,12 @@ fun ExpenseForm(
                         InstallmentsBottomSheet(
                             onSelected = {
                                 showInstallmentsBottomSheet = false
-                                releaseTypeState = if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
-                                    RepeatReleaseMode.INSTALLMENTS
-                                } else {
-                                    RepeatReleaseMode.NO_REPEAT
-                                }
+                                releaseTypeState =
+                                    if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
+                                        RepeatReleaseMode.INSTALLMENTS
+                                    } else {
+                                        RepeatReleaseMode.NO_REPEAT
+                                    }
 
                                 installments = it
                             }
@@ -196,7 +198,7 @@ fun ExpenseForm(
                     ),
                     shape = RoundedCornerShape(16.dp),
                     onClick = {
-                       showInstallmentsBottomSheet = true
+                        showInstallmentsBottomSheet = true
                     },
                     label = {
                         Text(text = "Parcelado")
@@ -223,5 +225,5 @@ fun ExpenseForm(
 @Preview(showBackground = true)
 @Composable
 private fun ExpenseFormPreview() {
-    ExpenseForm()
+    ExpenseForm(releaseType = ReleaseType.INCOME)
 }

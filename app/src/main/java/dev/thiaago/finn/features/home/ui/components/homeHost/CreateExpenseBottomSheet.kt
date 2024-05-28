@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
+import dev.thiaago.finn.features.home.domain.entities.ReleaseType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
@@ -55,6 +56,7 @@ fun CreateExpenseBottomSheet(
             derivedStateOf { pagerState.currentPage }
         }
 
+        val pages = listOf(ReleaseType.EXPENSE, ReleaseType.INCOME)
 
         TabRow(
             modifier = Modifier
@@ -78,7 +80,7 @@ fun CreateExpenseBottomSheet(
                 )
             }
         ) {
-            listOf("Despesa", "Receita").forEachIndexed { index, title ->
+            pages.forEachIndexed { index, releaseType ->
                 val coroutineScope = rememberCoroutineScope()
                 Tab(
                     interactionSource = object : MutableInteractionSource {
@@ -96,7 +98,7 @@ fun CreateExpenseBottomSheet(
                     }
                 ) {
                     Text(
-                        text = title,
+                        text = releaseType.translatedType(),
                         style = TextStyle(
                             fontSize = 16.sp
                         )
@@ -106,7 +108,8 @@ fun CreateExpenseBottomSheet(
         }
 
         HorizontalPager(state = pagerState) {
-            ExpenseForm(accounts = accounts)
+            val releaseType = pages[it]
+            ExpenseForm(accounts = accounts, releaseType = releaseType)
         }
     }
 
