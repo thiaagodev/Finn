@@ -5,12 +5,12 @@ import com.google.firebase.Timestamp
 data class ReleaseEntity(
     val id: String? = null,
     val valueMoney: Int,
-    val account: AccountEntity,
+    val account: AccountEntity?,
     val releaseType: ReleaseType,
-    val installments: Int?,
+    val installments: Int? = null,
     val repeatMode: RepeatReleaseMode,
     val description: String,
-    val date: Timestamp,
-    val deletedAt: Timestamp?,
+    val date: Timestamp?,
+    val deletedAt: Timestamp? = null,
     val payments: List<ReleasePayment>? = listOf(),
 )

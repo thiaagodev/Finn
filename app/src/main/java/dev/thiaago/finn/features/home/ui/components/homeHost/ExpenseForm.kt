@@ -1,5 +1,6 @@
 package dev.thiaago.finn.features.home.ui.components.homeHost
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,13 +18,10 @@ import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,29 +30,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.thiaago.finn.core.ui.components.CustomOutlinedTextField
 import dev.thiaago.finn.core.ui.components.DatePickerInput
 import dev.thiaago.finn.core.ui.components.InputChoices
 import dev.thiaago.finn.core.ui.components.InstallmentsBottomSheet
 import dev.thiaago.finn.core.ui.components.SimpleButton
-import dev.thiaago.finn.core.ui.state.FieldState
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
+import dev.thiaago.finn.features.home.domain.entities.ReleaseEntity
 import dev.thiaago.finn.features.home.domain.entities.ReleaseType
 import dev.thiaago.finn.features.home.domain.entities.RepeatReleaseMode
+import dev.thiaago.finn.features.home.ui.viewmodels.ExpenseFormViewModel
 import dev.thiaago.jetpackbrazilfields.ui.visualtransformations.MoneyVisualTransformation
-import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExpenseForm(
     accounts: List<AccountEntity> = listOf(),
     releaseType: ReleaseType,
-    onConfirm: () -> Unit = {},
+    onConfirm: (release: ReleaseEntity) -> Unit = {},
 ) {
-    var valueMoney by remember {
-        mutableStateOf("")
-    }
+    val context = LocalContext.current
+    val viewModel = hiltViewModel<ExpenseFormViewModel>()
+
     Column(
         Modifier
             .fillMaxWidth()
@@ -62,7 +61,7 @@ fun ExpenseForm(
     ) {
         BasicTextField(
             modifier = Modifier.align(Alignment.End),
-            value = valueMoney,
+            value = viewModel.valueMoney,
             visualTransformation = MoneyVisualTransformation(currencySymbol = "R$"),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number
@@ -74,7 +73,7 @@ fun ExpenseForm(
             ),
             onValueChange = {
                 if (it.isDigitsOnly()) {
-                    valueMoney = it
+                    viewModel.valueMoney = it
                 }
             }
         )
@@ -87,33 +86,26 @@ fun ExpenseForm(
                 Modifier.fillMaxWidth(0.75f),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                val descriptionState = FieldState(field = "")
                 CustomOutlinedTextField(
                     label = "Descrição",
                     material3Label = true,
                     placeholder = "",
-                    fieldState = descriptionState,
+                    fieldState = viewModel.descriptionState,
                     showClearIcon = true
                 )
 
-                var accountState by remember {
-                    mutableStateOf("")
-                }
                 InputChoices(
                     items = accounts.map { it.name },
                     placeholder = if (releaseType == ReleaseType.EXPENSE) "Pago com" else "Recebido em",
                     title = "Selecionar conta",
-                    onSelected = { value, index ->
-                        accountState = value
+                    onSelected = { _, index ->
+                        viewModel.accountState = accounts[index]
                     },
                 )
 
-                var dateState by remember {
-                    mutableStateOf<Date?>(null)
-                }
                 DatePickerInput(
                     onDateSelected = { date ->
-                        dateState = date
+                        viewModel.dateState = date
                     }
                 )
             }
@@ -132,12 +124,10 @@ fun ExpenseForm(
                 )
             )
 
-            var releaseTypeState by remember {
-                mutableStateOf(RepeatReleaseMode.NO_REPEAT)
-            }
+
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 InputChip(
-                    selected = releaseTypeState == RepeatReleaseMode.FIXED,
+                    selected = viewModel.releaseTypeState == RepeatReleaseMode.FIXED,
                     shape = RoundedCornerShape(16.dp),
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
@@ -146,50 +136,42 @@ fun ExpenseForm(
                         selectedContainerColor = FinnColors.lightGreen
                     ),
                     onClick = {
-                        releaseTypeState = if (releaseTypeState != RepeatReleaseMode.FIXED) {
-                            RepeatReleaseMode.FIXED
-                        } else {
-                            RepeatReleaseMode.NO_REPEAT
-                        }
+                        viewModel.installments = 0
+                        viewModel.releaseTypeState =
+                            if (viewModel.releaseTypeState != RepeatReleaseMode.FIXED) {
+                                RepeatReleaseMode.FIXED
+                            } else {
+                                RepeatReleaseMode.NO_REPEAT
+                            }
                     },
                     label = {
                         Text(text = "Fixo")
                     }
                 )
 
-                var showInstallmentsBottomSheet by remember {
-                    mutableStateOf(false)
-                }
-                var installments: Int? by remember {
-                    mutableStateOf(null)
-                }
 
-                if (showInstallmentsBottomSheet) {
+
+                if (viewModel.showInstallmentsBottomSheet) {
                     ModalBottomSheet(
                         windowInsets = WindowInsets(0.dp),
                         containerColor = Color.White,
                         tonalElevation = 0.dp,
                         onDismissRequest = {
-                            showInstallmentsBottomSheet = false
+                            viewModel.showInstallmentsBottomSheet = false
                         }
                     ) {
                         InstallmentsBottomSheet(
+                            currentInstallments = viewModel.installments,
                             onSelected = {
-                                showInstallmentsBottomSheet = false
-                                releaseTypeState =
-                                    if (releaseTypeState != RepeatReleaseMode.INSTALLMENTS) {
-                                        RepeatReleaseMode.INSTALLMENTS
-                                    } else {
-                                        RepeatReleaseMode.NO_REPEAT
-                                    }
-
-                                installments = it
+                                viewModel.showInstallmentsBottomSheet = false
+                                viewModel.releaseTypeState = RepeatReleaseMode.INSTALLMENTS
+                                viewModel.installments = it
                             }
                         )
                     }
                 }
                 InputChip(
-                    selected = releaseTypeState == RepeatReleaseMode.INSTALLMENTS,
+                    selected = viewModel.releaseTypeState == RepeatReleaseMode.INSTALLMENTS,
                     colors = InputChipDefaults.inputChipColors(
                         disabledLabelColor = Color.Black,
                         selectedLabelColor = Color.White,
@@ -198,7 +180,7 @@ fun ExpenseForm(
                     ),
                     shape = RoundedCornerShape(16.dp),
                     onClick = {
-                        showInstallmentsBottomSheet = true
+                        viewModel.showInstallmentsBottomSheet = true
                     },
                     label = {
                         Text(text = "Parcelado")
@@ -215,7 +197,18 @@ fun ExpenseForm(
                     Modifier.align(Alignment.BottomCenter),
                     text = "Confimar"
                 ) {
+                    val validateMessage = viewModel.validate()
+                    validateMessage?.let {
+                        Toast.makeText(
+                            context,
+                            validateMessage,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
+                    if (validateMessage.isNullOrEmpty()) {
+                        onConfirm(viewModel.getReleaseEntity(releaseType))
+                    }
                 }
             }
         }

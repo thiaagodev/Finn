@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,10 +33,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun InstallmentsBottomSheet(
     onSelected: (Int) -> Unit = {},
+    currentInstallments: Int? = 0,
 ) {
-    val parcels = 1..78
+    val parcels = 2..78
     val pagerState = rememberPagerState(
-        initialPage = 0,
+        initialPage = (currentInstallments ?: 2) - 2,
         pageCount = { parcels.last },
     )
 
@@ -53,10 +55,11 @@ fun InstallmentsBottomSheet(
         Spacer(modifier = Modifier.height(16.dp))
         VerticalPager(
             state = pagerState,
-            modifier = Modifier.size(128.dp),
+            modifier = Modifier.size(192.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             pageSize = PageSize.Fixed(64.dp),
             pageSpacing = 1.dp,
+            contentPadding = PaddingValues(64.dp)
         ) { index ->
             Box(
                 modifier = Modifier
@@ -87,7 +90,7 @@ fun InstallmentsBottomSheet(
         }
         Spacer(modifier = Modifier.height(16.dp))
         SimpleButton(text = "OK") {
-            onSelected(pagerState.currentPage)
+            onSelected(pagerState.currentPage + 2)
         }
         Spacer(modifier = Modifier.height(32.dp))
     }

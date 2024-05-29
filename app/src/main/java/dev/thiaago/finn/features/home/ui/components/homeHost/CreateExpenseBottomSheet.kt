@@ -109,7 +109,9 @@ fun CreateExpenseBottomSheet(
 
         HorizontalPager(state = pagerState) {
             val releaseType = pages[it]
-            ExpenseForm(accounts = accounts, releaseType = releaseType)
+            ExpenseForm(accounts = accounts, releaseType = releaseType, onConfirm = {
+                print(it)
+            })
         }
     }
 
