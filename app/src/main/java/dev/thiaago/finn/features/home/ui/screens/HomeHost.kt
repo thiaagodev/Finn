@@ -46,12 +46,14 @@ fun HomeHost() {
             onDismissRequest = { showAddExpenseBottomSheet = false }
         ) {
             CreateExpenseBottomSheet(
-                onConfirm = {},
                 accounts = if (accountState.value is AccountState.GetListAccountSuccess) {
                     (accountState.value as AccountState.GetListAccountSuccess).accounts
                 } else {
                     listOf()
-                }
+                },
+                onConfirm = {
+
+                },
             )
         }
     }

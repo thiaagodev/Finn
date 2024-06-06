@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.thiaago.finn.core.ui.theme.FinnColors
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
+import dev.thiaago.finn.features.home.domain.entities.ReleaseEntity
 import dev.thiaago.finn.features.home.domain.entities.ReleaseType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
@@ -39,7 +40,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CreateExpenseBottomSheet(
     accounts: List<AccountEntity> = listOf(),
-    onConfirm: () -> Unit
+    onConfirm: (release: ReleaseEntity) -> Unit
 ) {
     Column(
         Modifier
@@ -107,11 +108,15 @@ fun CreateExpenseBottomSheet(
             }
         }
 
-        HorizontalPager(state = pagerState) {
-            val releaseType = pages[it]
-            ExpenseForm(accounts = accounts, releaseType = releaseType, onConfirm = {
-                print(it)
-            })
+        HorizontalPager(state = pagerState) { index ->
+            val releaseType = pages[index]
+            ExpenseForm(
+                accounts = accounts,
+                releaseType = releaseType,
+                onConfirm = {
+                    onConfirm(it)
+                }
+            )
         }
     }
 
