@@ -4,7 +4,7 @@ data class AccountEntity(
     val id: String? = null,
     val ownerId: String? = null,
     val name: String,
-    val balance: Long = 0,
+    var balance: Long = 0,
 ) {
     companion object {
         const val ID = "id"

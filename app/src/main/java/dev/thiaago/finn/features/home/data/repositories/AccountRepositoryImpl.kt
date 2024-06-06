@@ -49,4 +49,19 @@ class AccountRepositoryImpl @Inject constructor() : AccountRepository {
         }
 
     }
+
+    override suspend fun updateAccountBalance(
+        accountEntity: AccountEntity,
+        balance: Int
+    ): Result<Boolean> {
+        return try {
+            db.collection(FirebaseCollections.ACCOUNT)
+                .document(accountEntity.id ?: "")
+                .update(AccountEntity.BALANCE, balance)
+
+            Result.success(true)
+        } catch (e: Exception) {
+            Result.failure(AccountCreateException())
+        }
+    }
 }

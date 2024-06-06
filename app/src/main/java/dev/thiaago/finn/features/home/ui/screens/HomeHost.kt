@@ -22,6 +22,7 @@ import dev.thiaago.finn.core.ui.navigation.homeScreen
 import dev.thiaago.finn.features.home.ui.components.homeHost.CreateExpenseBottomSheet
 import dev.thiaago.finn.features.home.ui.components.homeHost.HomeBottomAppBar
 import dev.thiaago.finn.features.home.ui.states.AccountState
+import dev.thiaago.finn.features.home.ui.states.CreateReleaseState
 import dev.thiaago.finn.features.home.ui.viewmodels.AccountViewModel
 import dev.thiaago.finn.features.home.ui.viewmodels.ReleaseViewModel
 
@@ -37,8 +38,12 @@ fun HomeHost() {
         mutableStateOf(false)
     }
 
-    if (showAddExpenseBottomSheet) {
+    val createReleaseState = releaseViewModel.createReleaseState.collectAsState()
+    if (createReleaseState.value == CreateReleaseState.CreateReleaseSuccess) {
         accountViewModel.getAccountList()
+    }
+
+    if (showAddExpenseBottomSheet) {
         ModalBottomSheet(
             sheetState = rememberModalBottomSheetState(
                 skipPartiallyExpanded = true,
@@ -68,7 +73,7 @@ fun HomeHost() {
                 startDestination = homeRoute,
                 Modifier.padding(it)
             ) {
-                homeScreen()
+                homeScreen(accountViewModel = accountViewModel)
             }
         },
         bottomBar = {

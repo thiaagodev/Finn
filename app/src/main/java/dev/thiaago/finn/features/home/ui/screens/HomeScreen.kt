@@ -54,12 +54,11 @@ import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(accountViewModel: AccountViewModel) {
     val loggedUser by remember {
         mutableStateOf(FirebaseAuth.getInstance().currentUser)
     }
 
-    val accountViewModel: AccountViewModel = hiltViewModel()
     val accountListState = accountViewModel.accountListState.collectAsState()
 
     var showCreateAccountBottomSheet by remember {
@@ -182,5 +181,5 @@ fun HomeScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomePagePreview() {
-    HomeScreen()
+    HomeScreen(hiltViewModel())
 }

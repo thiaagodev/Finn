@@ -60,10 +60,7 @@ class ExpenseFormViewModel @Inject constructor() : ViewModel() {
 
     fun clearForm() {
         valueMoney = ""
-        val descriptionState = FieldState(
-            field = "",
-            validators = listOf(IsNotEmptyValidator("Insira a descrição do lançamento"))
-        )
+        descriptionState.field.value = ""
         accountState = null
         dateState = Date()
         releaseTypeState = RepeatReleaseMode.NO_REPEAT
