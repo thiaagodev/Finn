@@ -208,6 +208,7 @@ fun ExpenseForm(
 
                     if (validateMessage.isNullOrEmpty()) {
                         onConfirm(viewModel.getReleaseEntity(releaseType))
+                        viewModel.clearForm()
                     }
                 }
             }

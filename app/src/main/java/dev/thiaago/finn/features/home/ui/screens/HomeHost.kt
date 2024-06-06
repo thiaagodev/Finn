@@ -23,11 +23,13 @@ import dev.thiaago.finn.features.home.ui.components.homeHost.CreateExpenseBottom
 import dev.thiaago.finn.features.home.ui.components.homeHost.HomeBottomAppBar
 import dev.thiaago.finn.features.home.ui.states.AccountState
 import dev.thiaago.finn.features.home.ui.viewmodels.AccountViewModel
+import dev.thiaago.finn.features.home.ui.viewmodels.ReleaseViewModel
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun HomeHost() {
     val accountViewModel: AccountViewModel = hiltViewModel()
+    val releaseViewModel: ReleaseViewModel = hiltViewModel()
 
     val accountState = accountViewModel.accountListState.collectAsState()
 
@@ -52,7 +54,8 @@ fun HomeHost() {
                     listOf()
                 },
                 onConfirm = {
-
+                    releaseViewModel.createRelease(it)
+                    showAddExpenseBottomSheet = false
                 },
             )
         }

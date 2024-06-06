@@ -57,4 +57,18 @@ class ExpenseFormViewModel @Inject constructor() : ViewModel() {
 
         return null
     }
+
+    fun clearForm() {
+        valueMoney = ""
+        val descriptionState = FieldState(
+            field = "",
+            validators = listOf(IsNotEmptyValidator("Insira a descrição do lançamento"))
+        )
+        accountState = null
+        dateState = Date()
+        releaseTypeState = RepeatReleaseMode.NO_REPEAT
+
+        showInstallmentsBottomSheet = false
+        installments = null
+    }
 }

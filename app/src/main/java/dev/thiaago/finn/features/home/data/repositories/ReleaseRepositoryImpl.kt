@@ -8,8 +8,9 @@ import dev.thiaago.finn.features.home.domain.entities.ReleaseEntity
 import dev.thiaago.finn.features.home.domain.errors.ReleaseCreateException
 import dev.thiaago.finn.features.home.domain.repositories.ReleaseRepository
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class ReleaseRepositoryImpl: ReleaseRepository {
+class ReleaseRepositoryImpl @Inject constructor(): ReleaseRepository {
     private val db: FirebaseFirestore = Firebase.firestore
 
     override suspend fun createRelease(release: ReleaseEntity): Result<Boolean> {
