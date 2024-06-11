@@ -19,9 +19,7 @@ class CreateReleaseUseCase @Inject constructor(
                     else ((account?.balance ?: 0) + release.valueMoney)
             })
             release.account?.let {
-                val balance =
-                    if (release.releaseType == ReleaseType.EXPENSE) it.balance - release.valueMoney
-                    else it.balance + release.valueMoney
+                val balance = release.account.balance
                 accountRepository.updateAccountBalance(it, balance.toInt())
             }
 

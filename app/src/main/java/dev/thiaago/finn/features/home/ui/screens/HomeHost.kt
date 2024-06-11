@@ -44,6 +44,7 @@ fun HomeHost() {
     }
 
     if (showAddExpenseBottomSheet) {
+        accountViewModel.getAccountList()
         ModalBottomSheet(
             sheetState = rememberModalBottomSheetState(
                 skipPartiallyExpanded = true,

@@ -46,7 +46,7 @@ import dev.thiaago.finn.core.ui.theme.FinnTheme
 import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import dev.thiaago.finn.features.home.ui.components.AccountItem
 import dev.thiaago.finn.features.home.ui.components.CreateAccountBottomSheet
-import dev.thiaago.finn.features.home.ui.components.IncomeAndExpensesSection
+import dev.thiaago.finn.features.home.ui.components.BalanceSection
 import dev.thiaago.finn.features.home.ui.components.MyAccountsCard
 import dev.thiaago.finn.features.home.ui.states.AccountState
 import dev.thiaago.finn.features.home.ui.viewmodels.AccountViewModel
@@ -81,7 +81,7 @@ fun HomeScreen(accountViewModel: AccountViewModel) {
                         onClose = {
                             showCreateAccountBottomSheet = false
                         },
-                        onConfirm = {accountName ->
+                        onConfirm = { accountName ->
                             accountViewModel.createAccount(
                                 AccountEntity(
                                     ownerId = loggedUser?.uid,
@@ -118,8 +118,8 @@ fun HomeScreen(accountViewModel: AccountViewModel) {
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                     )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    IncomeAndExpensesSection(income = 0.0, expenses = 0.0)
+                    Spacer(modifier = Modifier.height(48.dp))
+                    BalanceSection(balance = accountViewModel.balance.collectAsState().value)
                 }
             }
 

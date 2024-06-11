@@ -7,6 +7,7 @@ import dev.thiaago.finn.features.home.domain.entities.AccountEntity
 import dev.thiaago.finn.features.home.domain.usecases.CreateAccountUseCase
 import dev.thiaago.finn.features.home.domain.usecases.GetAccountListUseCase
 import dev.thiaago.finn.features.home.ui.states.AccountState
+import dev.thiaago.jetpackbrazilfields.extensions.centsToRealDouble
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,6 +21,9 @@ class AccountViewModel @Inject constructor(
     private val _accountListState = MutableStateFlow<AccountState>(AccountState.AccountInitial)
     val accountListState = _accountListState.asStateFlow()
 
+    private val _balance = MutableStateFlow(0.0)
+    val balance = _balance.asStateFlow()
+
     init {
         getAccountList()
     }
@@ -31,8 +35,11 @@ class AccountViewModel @Inject constructor(
 
             accountList.fold(
                 onSuccess =
-                {
-                    _accountListState.value = AccountState.GetListAccountSuccess(it)
+                { account ->
+                    _accountListState.value = AccountState.GetListAccountSuccess(account)
+                    _balance.value = account.sumOf {
+                        it.balance
+                    }.centsToRealDouble()
                 },
                 onFailure = {
                     _accountListState.value = AccountState.GetListAccountError
