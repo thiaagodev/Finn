@@ -9,6 +9,8 @@ class FinnColors {
         val darkGreen = Color(0xFF0DCF7B)
         val errorColor = Color(0xFFEB0909)
         val moneyColor = Color(0xFF009554)
+        val opacityGreen = Color(0xFFCFEFE1)
+        val opacityRed = Color(0xFFEFCFCF)
         val gray = Color(0xFF939393)
     }
 }
